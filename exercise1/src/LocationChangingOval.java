@@ -3,18 +3,17 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-public class LocationChangingRectangle extends LocationChangingShape {
+public class LocationChangingOval extends LocationChangingShape {
 	
-	private Dimension rectDimension;
+	private Dimension ovalDimension;
 	
 	
-	LocationChangingRectangle(Point location, Color color,Dimension dimension) {
+	LocationChangingOval(Point location, Color color,Dimension dimension) {
     	super(location,color);
-    	this.rectDimension=dimension;
+    	this.ovalDimension=dimension;
 		checkRep();
     }
 	
@@ -32,7 +31,7 @@ public class LocationChangingRectangle extends LocationChangingShape {
     		throw new ImpossibleSizeException();
     	}
 		checkRep();
-    	this.rectDimension=dimension;
+    	this.ovalDimension=dimension;
 		checkRep();
 
     }
@@ -42,7 +41,7 @@ public class LocationChangingRectangle extends LocationChangingShape {
      */
     public Rectangle getBounds() {
 		checkRep();
-    	Rectangle boundingRect=new Rectangle(this.getLocation(), this.rectDimension);
+    	Rectangle boundingRect=new Rectangle(this.getLocation(), this.ovalDimension);
 		checkRep();
     	return boundingRect.getBounds();
     }
@@ -52,17 +51,8 @@ public class LocationChangingRectangle extends LocationChangingShape {
      * @modifies g
      * @effects Draws this onto g.
      */
-public void draw(Graphics g) {
+    public void draw(Graphics g) {
     	
-    	checkRep();
-    	
-    	assert g != null;
-    	
-    	((Graphics2D) g).setColor(getColor());
-    	((Graphics2D) g).fillRect((int)getLocation().getX(),(int)getLocation().getY(),
-    			(int)getBounds().getHeight(),(int)getBounds().getHeight());
-    	
-    	checkRep();
     }
     
     /**
@@ -70,22 +60,22 @@ public void draw(Graphics g) {
      */
     public Object clone() {
     	checkRep();
-    	LocationChangingRectangle movingRectangleClone;
-    	movingRectangleClone=(LocationChangingRectangle)super.clone();
-    	movingRectangleClone.rectDimension=(Dimension)rectDimension.clone();
+    	LocationChangingOval movingOvalClone;
+    	movingOvalClone=(LocationChangingOval)super.clone();
+    	movingOvalClone.ovalDimension=(Dimension)ovalDimension.clone();
     	checkRep();
-    	return movingRectangleClone;
+    	return movingOvalClone;
 
     }
     
     
     /**
-     * @effects Checks if values in Oval are valid
+     * @effects Checks if values in shape are valid
      */
     private void checkRep() {
-    	assert (rectDimension.getWidth() >=0 ):
+    	assert (ovalDimension.getWidth() >=0 ):
         "Error: Width is not a positive number";
-    	assert (rectDimension.getHeight() >=0 ):
+    	assert (ovalDimension.getHeight() >=0 ):
         "Error: Height is not a positive number";
     }
 
