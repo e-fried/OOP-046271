@@ -186,10 +186,10 @@ public class Animator extends JFrame implements ActionListener {
 			int xLocation = (int)(rand.nextInt(WINDOW_WIDTH - randWidth));
 			int randHeight = (int) (rand.nextInt((int)(0.2*WINDOW_HEIGHT))+0.1*WINDOW_HEIGHT);
 			int yLocation = (int)(rand.nextInt(WINDOW_HEIGHT - randHeight));
-			int startAngle = rand.nextInt(359);
-			int arcAngle= rand.nextInt(358)+1;
+			int startAngle = rand.nextInt(360);
+			int arcAngle= rand.nextInt(359)+1;
 			Dimension  dimension = new Dimension(randWidth,randHeight);
-			Color color = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+			Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
 			Point location = new Point(xLocation,yLocation);
 			
 			if(source.equals(roundedRectangleItem)){

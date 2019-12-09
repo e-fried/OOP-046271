@@ -31,18 +31,18 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
     	// TODO: Implement this constructor
 		super(location,color);
 		Random rand = new Random();
-		int positiveRandX = rand.nextInt(4) +1;
-		int positiveRandY = rand.nextInt(4) +1;
-		int signRandX = rand.nextInt(1);
-		int signRandY = rand.nextInt(1);
-		if (signRandX==0){
+		int positiveRandX = rand.nextInt(5) +1;
+		int positiveRandY = rand.nextInt(5) +1;
+		int signRandX = rand.nextInt(2);
+		int signRandY = rand.nextInt(2);
+		if (signRandX==1){
 			vx = positiveRandX*-1;
 		}
 		else {
 			vx = positiveRandX;	
 		}
 		
-		if (signRandY==0){
+		if (signRandY==1){
 			vy = positiveRandY*-1;
 		}
 		else {
@@ -121,7 +121,7 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
     private boolean HorizontalCheck(Rectangle bound, Rectangle recBound){
     	boolean stepCheck,baseCheck; 
         baseCheck =  (recBound.getMaxX() <= bound.getMaxX()) && (bound.getMinX() <= recBound.getMinX());
-    	stepCheck =  ((recBound.getMaxX()+vx) <= bound.getMaxX()) && ((bound.getMinX()+vx) <= recBound.getMinX());
+    	stepCheck =  ((recBound.getMaxX()+vx) <= bound.getMaxX()) && ((bound.getMinX()) <= recBound.getMinX()+vx);
     	return(stepCheck||baseCheck);
     }
     /**
@@ -131,7 +131,7 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
     private boolean VerticalCheck(Rectangle bound, Rectangle recBound){
     	boolean stepCheck,baseCheck; 
         baseCheck =  (recBound.getMaxY() <= bound.getMaxY()) && (bound.getMinY() <= recBound.getMinY());
-    	stepCheck =  ((recBound.getMaxY())+vy) <= bound.getMaxY() && ((bound.getMinY()+vy) <= recBound.getMinY());
+    	stepCheck =  ((recBound.getMaxY())+vy) <= bound.getMaxY() && ((bound.getMinY()) <= recBound.getMinY()+vy);
     	return(stepCheck||baseCheck);
     	
     }

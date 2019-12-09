@@ -34,8 +34,8 @@ public class LocationChangingNumberedOval extends LocationChangingOval {
     	assert g != null;
     	super.draw(g);
     	
-    	Point middleOfBox = new Point ((int)(this.getBounds().getMinX() + this.getBounds().getMaxX())/2 ,
-    			(int)(this.getBounds().getMinY() + this.getBounds().getMaxY())/2);
+    	Point middleOfBox = new Point ((int)((this.getBounds().getMinX() + this.getBounds().getMaxX())/2) ,
+    			(int)((this.getBounds().getMinY() + this.getBounds().getMaxY())/2));
     	
         if(getColor() == Color.BLACK) {
         	((Graphics2D) g).setColor(Color.WHITE);	
@@ -45,9 +45,6 @@ public class LocationChangingNumberedOval extends LocationChangingOval {
         }
         
         
-    	((Graphics2D) g).setColor(getColor());
-    	((Graphics2D) g).fillOval((int)getLocation().getX(),(int)getLocation().getY(),
-    			(int)getBounds().getHeight(),(int)getBounds().getHeight());
     	
     	((Graphics2D) g).drawString( Integer.toString(myNumber), (int)middleOfBox.getX(), (int)middleOfBox.getY());
     	
