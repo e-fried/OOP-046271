@@ -1,3 +1,4 @@
+package homework1;
 
 
 import java.awt.Color;
@@ -23,8 +24,8 @@ public class LocationChangingRoundedRectangle extends LocationChangingRectangle 
 @Override
 public void draw(Graphics g) {
     	
-    	final int arcHeight=5;
-    	final int arcWidth=5;
+    	final int arcHeight=20;
+    	final int arcWidth=20;
     	assert g != null;
     	
     	((Graphics2D) g).setColor(getColor());

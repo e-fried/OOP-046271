@@ -1,4 +1,4 @@
-
+package homework1;
 
 import java.awt.*;
 
@@ -89,7 +89,6 @@ public abstract class Shape implements Cloneable {
     public Color getColor() {
     	checkRep();
     	return color;
-    	checkRep();
     }
 
 
@@ -116,10 +115,15 @@ public abstract class Shape implements Cloneable {
      */
     public Object clone() {
     	checkRep();
-    	Shape shapeClone;
-    	shapeClone=(Shape)super.clone();
-    	shapeClone.location=(Point)location.clone();
-    	shapeClone.color=color;
+    	Shape shapeClone = null;
+    	try {
+    		shapeClone=(Shape)super.clone();
+    		shapeClone.location=(Point)location.clone();
+    		shapeClone.color=color;
+    	}
+    	catch (CloneNotSupportedException e){
+    		
+    	}
     	checkRep();
     	return shapeClone;
 
