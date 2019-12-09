@@ -52,7 +52,7 @@ public class LocationChangingRectangle extends LocationChangingShape {
      * @modifies g
      * @effects Draws this onto g.
      */
-public void draw(Graphics g) {
+    public void draw(Graphics g) {
     	
     	checkRep();
     	
@@ -68,6 +68,7 @@ public void draw(Graphics g) {
     /**
      * @effects Creates and returns a copy of this.
      */
+	@Override
     public Object clone() {
     	checkRep();
     	LocationChangingRectangle movingRectangleClone;
@@ -80,7 +81,7 @@ public void draw(Graphics g) {
     
     
     /**
-     * @effects Checks if values in Oval are valid
+     * @effects Checks if values in Rectangle are valid
      */
     private void checkRep() {
     	assert (rectDimension.getWidth() >=0 ):
