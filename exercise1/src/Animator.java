@@ -2,10 +2,11 @@ package homework1;
 
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.Timer;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
 
-import java.util.*;
+import javax.swing.*;
 
 /**
  * Main application class for exercise #1.
@@ -30,8 +31,8 @@ public class Animator extends JFrame implements ActionListener {
 
 	// shapes that have been added to this
 	
-	// TODO: Add and initialize a container of shapes called shapes.
-	private ArrayList<Shape> shapes = new ArrayList<Shape>(); // Create an ArrayList object
+	private ArrayList<Shape> shapes = new ArrayList<Shape>();
+	
 
 	/**
 	 * @modifies this
@@ -52,13 +53,13 @@ public class Animator extends JFrame implements ActionListener {
         Timer timer = new Timer(40, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if (animationCheckItem.isSelected()) {
-                	// TODO: Add code for making one animation step for all
-                	// 		 shapes in this
-                	Iterator<Shape> iter = shapes.iterator();
-            		while(iter.hasNext()) {
-            			//Declaration of implementing Animatable interface
-            			((Animatable)iter.next()).step(mainPanel.getBounds());
-            		}
+                	Iterator<Shape> myShapesIt = shapes.iterator();
+                	while(myShapesIt.hasNext()){
+                		Animatable tmpAnim = (Animatable) myShapesIt.next();
+                		tmpAnim.step(mainPanel.getBounds());
+                	}
+                	
+                	
 
             		repaint();	// make sure that the shapes are redrawn
                 }
@@ -137,12 +138,13 @@ public class Animator extends JFrame implements ActionListener {
 	public void paint(Graphics g) {
 		super.paint(g);
 
-		//TODO: Add code for drawing all shapes in this
-		Iterator<Shape> iter = shapes.iterator();
-		while(iter.hasNext()) {
-			iter.next().draw(getContentPane().getGraphics());
-		}
-	
+    	Iterator<Shape> myShapesIt = shapes.iterator();
+    	while(myShapesIt.hasNext()){
+    		Shape tmpShape = (Shape) myShapesIt.next();
+    		tmpShape.draw(getContentPane().getGraphics());
+    	}
+
+		
 	}
 
 
@@ -158,7 +160,8 @@ public class Animator extends JFrame implements ActionListener {
 		if (source.equals(newItem)) {
 			shapes.clear();
 			repaint();
-			LocationChangingNumberedOval.resetCounter();
+			
+			LocationChangingNumberedOval.reset();
 		}
 
 		// File->Exit: close application
@@ -178,34 +181,33 @@ public class Animator extends JFrame implements ActionListener {
 			//		 its location and size are randomly selected &&
 			//		 1/10*WINDOW_WIDTH <= shape.width < 3/10*WINDOW_WIDTH &&
 			//		 1/10*WINDOW_HEIGHT <= shape.height < 3/10*WINDOW_HEIGHT
-			Random rand = new Random();
-			double range = 0.2*WINDOW_WIDTH;
-			int width = rand.nextInt((int)range);
-			width += 0.1*WINDOW_WIDTH;
-			range = 0.2*WINDOW_HEIGHT;
-			int height = rand.nextInt((int)range);
-			height += 0.1*WINDOW_HEIGHT;
-			int locX = rand.nextInt(WINDOW_WIDTH - width);
-			int locY = rand.nextInt(WINDOW_HEIGHT - height);
-			Point location = new Point(locX,locY);
-			Color color = new Color(rand.nextFloat(),rand.nextFloat(),rand.nextFloat());
+			Random rand = new Random() ; 
+			int randWidth = (int) (rand.nextInt((int)(0.2*WINDOW_WIDTH))+0.1*WINDOW_WIDTH);
+			int xLocation = (int)(rand.nextInt(WINDOW_WIDTH - randWidth));
+			int randHeight = (int) (rand.nextInt((int)(0.2*WINDOW_HEIGHT))+0.1*WINDOW_HEIGHT);
+			int yLocation = (int)(rand.nextInt(WINDOW_HEIGHT - randHeight));
+			int startAngle = rand.nextInt(359);
+			int arcAngle= rand.nextInt(358)+1;
+			Dimension  dimension = new Dimension(randWidth,randHeight);
+			Color color = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+			Point location = new Point(xLocation,yLocation);
 			
-			if(source.equals(rectangleItem)){
-				shapes.add(new LocationChangingRectangle(location,color,width,height)); 
+			if(source.equals(roundedRectangleItem)){
+				shapes.add(new LocationChangingRoundedRectangle(location, color, dimension));
 			}
-			else if(source.equals(roundedRectangleItem)){
-				shapes.add(new LocationChangingRoundedRectangle(location,color,width,height)); 
-			}
-			else if(source.equals(ovalItem)){
-				shapes.add(new LocationChangingOval(location,color,width,height)); 
+			else if(source.equals(rectangleItem)){
+				shapes.add(new LocationChangingRectangle(location, color, dimension)); 
 			}
 			else if(source.equals(numberedOvalItem)){
-				shapes.add(new LocationChangingNumberedOval(location,color,width,height)); 
+				shapes.add(new LocationChangingNumberedOval(location, color, dimension)); 
+			}
+			else if(source.equals(ovalItem)){
+				shapes.add(new LocationChangingOval(location, color, dimension)); 
 			}
 			else {
-				int angle = rand.nextInt(359), section = rand.nextInt(360);
-				shapes.add(new AngleChangingSector(location,color,width,height,angle,section)); 
+				shapes.add(new AngleChangingSector( location, color, startAngle, arcAngle , dimension)); 
 			}
+			
 			repaint();
 		}
 
