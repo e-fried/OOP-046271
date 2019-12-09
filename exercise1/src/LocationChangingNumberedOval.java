@@ -70,6 +70,9 @@ public class LocationChangingNumberedOval extends LocationChangingOval {
     	return numberMovingOvalClone;
 
     }
+    public void reset(){
+	counter=0;    
+    }    
     
     
     /**
