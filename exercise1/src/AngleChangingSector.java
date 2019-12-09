@@ -11,14 +11,14 @@ import java.util.Random;
  * Thus, a typical LocationChaningShape consists of the following set of
  * properties: {location, color, shape, size, velocity}
  */
-public abstract class AngleChangingSector extends Shape implements Animatable {
+public class AngleChangingSector extends Shape implements Animatable {
 
 	// Abs. Function:
 	// Represents the change in location by (vx, vy) units at every step time unit 
 	// vx is the velocity on the X axis, and vy represents the velocity on the Y axis
 	// Rep. Invariant:
 	// vx and vy are integer numbers
-	private final int arcAngle ;
+	private int arcAngle ;
 	private int startAngle ;
 	private static final int MAX_ARC_ANGLE =360;
 	private static final int MIN_ARC_ANGLE =-360;

@@ -68,6 +68,7 @@ public class LocationChangingOval extends LocationChangingShape {
     /**
      * @effects Creates and returns a copy of this.
      */
+    
     @Override
     public Object clone() {
     	checkRep();
