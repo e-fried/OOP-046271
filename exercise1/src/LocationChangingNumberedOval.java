@@ -9,7 +9,7 @@ import java.awt.Rectangle;
 
 public class LocationChangingNumberedOval extends LocationChangingOval {
 	
-	static int counter = 0;
+	private static int counter = 0;
 	private int myNumber;
 	
 	LocationChangingNumberedOval(Point location, Color color,Dimension dimension) {
