@@ -1,8 +1,11 @@
-
+package homework1;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.Timer;
+
+import java.util.*;
 
 /**
  * Main application class for exercise #1.
@@ -28,7 +31,7 @@ public class Animator extends JFrame implements ActionListener {
 	// shapes that have been added to this
 	
 	// TODO: Add and initialize a container of shapes called shapes.
-	
+	private ArrayList<Shape> shapes = new ArrayList<Shape>(); // Create an ArrayList object
 
 	/**
 	 * @modifies this
@@ -51,8 +54,11 @@ public class Animator extends JFrame implements ActionListener {
                 if (animationCheckItem.isSelected()) {
                 	// TODO: Add code for making one animation step for all
                 	// 		 shapes in this
-
-                	
+                	Iterator<Shape> iter = shapes.iterator();
+            		while(iter.hasNext()) {
+            			//Declaration of implementing Animatable interface
+            			((Animatable)iter.next()).step(mainPanel.getBounds());
+            		}
 
             		repaint();	// make sure that the shapes are redrawn
                 }
@@ -132,8 +138,11 @@ public class Animator extends JFrame implements ActionListener {
 		super.paint(g);
 
 		//TODO: Add code for drawing all shapes in this
-
-		
+		Iterator<Shape> iter = shapes.iterator();
+		while(iter.hasNext()) {
+			iter.next().draw(getContentPane().getGraphics());
+		}
+	
 	}
 
 
@@ -149,8 +158,7 @@ public class Animator extends JFrame implements ActionListener {
 		if (source.equals(newItem)) {
 			shapes.clear();
 			repaint();
-			
-			//TODO  Add code for number of LocationChangingNumerOval = 0
+			LocationChangingNumberedOval.resetCounter();
 		}
 
 		// File->Exit: close application
@@ -170,8 +178,34 @@ public class Animator extends JFrame implements ActionListener {
 			//		 its location and size are randomly selected &&
 			//		 1/10*WINDOW_WIDTH <= shape.width < 3/10*WINDOW_WIDTH &&
 			//		 1/10*WINDOW_HEIGHT <= shape.height < 3/10*WINDOW_HEIGHT
-		
+			Random rand = new Random();
+			double range = 0.2*WINDOW_WIDTH;
+			int width = rand.nextInt((int)range);
+			width += 0.1*WINDOW_WIDTH;
+			range = 0.2*WINDOW_HEIGHT;
+			int height = rand.nextInt((int)range);
+			height += 0.1*WINDOW_HEIGHT;
+			int locX = rand.nextInt(WINDOW_WIDTH - width);
+			int locY = rand.nextInt(WINDOW_HEIGHT - height);
+			Point location = new Point(locX,locY);
+			Color color = new Color(rand.nextFloat(),rand.nextFloat(),rand.nextFloat());
 			
+			if(source.equals(rectangleItem)){
+				shapes.add(new LocationChangingRectangle(location,color,width,height)); 
+			}
+			else if(source.equals(roundedRectangleItem)){
+				shapes.add(new LocationChangingRoundedRectangle(location,color,width,height)); 
+			}
+			else if(source.equals(ovalItem)){
+				shapes.add(new LocationChangingOval(location,color,width,height)); 
+			}
+			else if(source.equals(numberedOvalItem)){
+				shapes.add(new LocationChangingNumberedOval(location,color,width,height)); 
+			}
+			else {
+				int angle = rand.nextInt(359), section = rand.nextInt(360);
+				shapes.add(new AngleChangingSector(location,color,width,height,angle,section)); 
+			}
 			repaint();
 		}
 
