@@ -1,6 +1,7 @@
-
+package homework1;
 
 import java.awt.*;
+import java.util.Random;
 
 
 /**
@@ -12,15 +13,13 @@ import java.awt.*;
  */
 public abstract class LocationChangingShape extends Shape implements Animatable {
 
-	// TODO: Write Abstraction Function
-	
-	// TODO: Write Representation Invariant
-	
 	// Abs. Function:
 	// Represents the change in location by (vx, vy) units at every step time unit 
 	// vx is the velocity on the X axis, and vy represents the velocity on the Y axis
 	// Rep. Invariant:
 	// vx and vy are integer numbers
+	private int vx ;
+	private int vy ;
 	
 	/**
 	 * @effects Initializes this with a a given location and color. Each
@@ -30,8 +29,26 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
 	 */
 	LocationChangingShape(Point location, Color color) {
     	// TODO: Implement this constructor
-
-    
+		super(location,color);
+		Random rand = new Random();
+		int positiveRandX = rand.nextInt(4) +1;
+		int positiveRandY = rand.nextInt(4) +1;
+		int signRandX = rand.nextInt(1);
+		int signRandY = rand.nextInt(1);
+		if (signRandX==0){
+			vx = positiveRandX*-1;
+		}
+		else {
+			vx = positiveRandX;	
+		}
+		
+		if (signRandY==0){
+			vy = positiveRandY*-1;
+		}
+		else {
+			vy = positiveRandY;
+		}
+			
     }
 
 
@@ -40,7 +57,7 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
      */
     public int getVelocityX() {
     	// TODO: Implement this method
-
+    	return vx;
     	
     }
 
@@ -50,7 +67,7 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
      */
     public int getVelocityY() {
     	// TODO: Implement this method
-
+    	return vy;
     	
     }
 
@@ -62,7 +79,8 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
      */
     public void setVelocity(int velocityX, int velocityY) {
     	// TODO: Implement this method
-
+    	this.vx=velocityX;
+    	this.vy=velocityY;
     	
     }
 
@@ -84,24 +102,43 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
      * 			p = p + v
      */
     public void step(Rectangle bound) {
-    	
-    	
-    	// TODO: Implement this method
-
-    	
+    	assert bound != null ;
+    	Rectangle recBound = new Rectangle(getBounds());
+    	Point outLocation = new Point((int)recBound.getX(),(int)recBound.getY());
+    	if (HorizontalCheck(bound,recBound) == false){
+    		vx=-vx;
+    	}
+    	if (VerticalCheck(bound,recBound) == false){
+    		vy=-vy;
+    	}
+    	outLocation.translate(vx, vy);
+    	setLocation(outLocation);
     }
-    
     /**
-     * @effects Checks if values in shape are valid
+     * @effects Checks if recBound (before or after the step) is inside x bound and return true if so and false  
+     *  otherwise
      */
-    private void checkRep() {
-        //are there any restriction on values?
+    private boolean HorizontalCheck(Rectangle bound, Rectangle recBound){
+    	boolean stepCheck,baseCheck; 
+        baseCheck =  (recBound.getMaxX() <= bound.getMaxX()) && (bound.getMinX() <= recBound.getMinX());
+    	stepCheck =  ((recBound.getMaxX()+vx) <= bound.getMaxX()) && ((bound.getMinX()+vx) <= recBound.getMinX());
+    	return(stepCheck||baseCheck);
     }
-    
+    /**
+     * @effects Checks if recBound (before or after the step) is inside y bound and return true if so and false  
+     *  otherwise
+     */
+    private boolean VerticalCheck(Rectangle bound, Rectangle recBound){
+    	boolean stepCheck,baseCheck; 
+        baseCheck =  (recBound.getMaxY() <= bound.getMaxY()) && (bound.getMinY() <= recBound.getMinY());
+    	stepCheck =  ((recBound.getMaxY())+vy) <= bound.getMaxY() && ((bound.getMinY()+vy) <= recBound.getMinY());
+    	return(stepCheck||baseCheck);
+    	
+    }
     /**
      * @effects Creates and returns a copy of this.
      */
-	@Override;
+	@Override
     public Object clone() {
     	checkRep();
     	LocationChangingShape locationChangeClone;
@@ -112,4 +149,11 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
     	return locationChangeClone;
 
     }
+    /**
+     * @effects Checks if values in shape are valid
+     */
+    private void checkRep() {
+
+    }
 }
+
