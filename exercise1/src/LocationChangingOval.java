@@ -1,8 +1,9 @@
-
+package homework1;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 
@@ -53,11 +54,21 @@ public class LocationChangingOval extends LocationChangingShape {
      */
     public void draw(Graphics g) {
     	
+    	checkRep();
+    	
+    	assert g != null;
+    	
+    	((Graphics2D) g).setColor(getColor());
+    	((Graphics2D) g).fillOval((int)getLocation().getX(),(int)getLocation().getY(),
+    			(int)getBounds().getHeight(),(int)getBounds().getHeight());
+    	
+    	checkRep();
     }
     
     /**
      * @effects Creates and returns a copy of this.
      */
+    @Override
     public Object clone() {
     	checkRep();
     	LocationChangingOval movingOvalClone;
