@@ -176,20 +176,16 @@ public class Animator extends JFrame implements ActionListener {
       		 	 (source.equals(numberedOvalItem)) ||
       		 	 (source.equals(sectorItem))) {
 
-			// TODO: Add code for creating the appropriate shape such that:
-			// 		 it is completely inside the window's bounds &&
-			//		 its location and size are randomly selected &&
-			//		 1/10*WINDOW_WIDTH <= shape.width < 3/10*WINDOW_WIDTH &&
-			//		 1/10*WINDOW_HEIGHT <= shape.height < 3/10*WINDOW_HEIGHT
+
 			Random rand = new Random() ; 
 			int randWidth = (int) (rand.nextInt((int)(0.2*WINDOW_WIDTH))+0.1*WINDOW_WIDTH);
 			int xLocation = (int)(rand.nextInt(WINDOW_WIDTH - randWidth));
 			int randHeight = (int) (rand.nextInt((int)(0.2*WINDOW_HEIGHT))+0.1*WINDOW_HEIGHT);
 			int yLocation = (int)(rand.nextInt(WINDOW_HEIGHT - randHeight));
-			int startAngle = rand.nextInt(360);
-			int arcAngle= rand.nextInt(359)+1;
+			int startAngle = rand.nextInt(359);
+			int arcAngle= rand.nextInt(358)+1;
 			Dimension  dimension = new Dimension(randWidth,randHeight);
-			Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+			Color color = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 			Point location = new Point(xLocation,yLocation);
 			
 			if(source.equals(roundedRectangleItem)){

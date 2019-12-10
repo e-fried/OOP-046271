@@ -7,14 +7,35 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+/**
+ * A LocationChaningOval is a LocationChangingShape thus, can change its location using its step()
+ * method. A LocationChaningOval has a Dimension property that determines the height and width of the oval
+ * Thus, a typical LocationChaningOval consists of the following set of
+ * properties: {location, color, shape, dimension, velocity}
+ */
+
 public class LocationChangingOval extends LocationChangingShape {
+	
+	// Abs. Function:
+	// Represents the change in location of the oval that was extended by LocationChangingShape units at every step 
+	// the oval is represented by ovalDimension(Width, Height) and location
+	// Rep. Invariant:
+	// ovalDimension.Width and ovalDimension.Height are positive values
 	
 	private Dimension ovalDimension;
 	
+	/**
+	 * @effects Initializes this with a a given location, color and dimension.
+	 * @requires dimension.Height and dimension.Width are a positive number       
+	 */
 	
 	LocationChangingOval(Point location, Color color,Dimension dimension) {
     	super(location,color);
-    	this.ovalDimension=dimension;
+    	assert (dimension.getWidth() >0 ):
+    		"Error: Width is not a positive number";
+    	assert (dimension.getHeight() >0 ):
+    		"Error: Height is not a positive number";
+    	this.ovalDimension=(Dimension)dimension.clone();
 		checkRep();
     }
 	
@@ -32,7 +53,7 @@ public class LocationChangingOval extends LocationChangingShape {
     		throw new ImpossibleSizeException();
     	}
 		checkRep();
-    	this.ovalDimension=dimension;
+    	this.ovalDimension=(Dimension)dimension.clone();
 		checkRep();
 
     }
@@ -85,10 +106,10 @@ public class LocationChangingOval extends LocationChangingShape {
      * @effects Checks if values in shape are valid
      */
     private void checkRep() {
-    	assert (ovalDimension.getWidth() >=0 ):
-        "Error: Width is not a positive number";
-    	assert (ovalDimension.getHeight() >=0 ):
-        "Error: Height is not a positive number";
+    	assert (ovalDimension.getWidth() >0 ):
+    		"Error: Width is not a positive number";
+    	assert (ovalDimension.getHeight() >0 ):
+    		"Error: Height is not a positive number";
     }
 
 
