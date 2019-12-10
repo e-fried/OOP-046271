@@ -29,7 +29,6 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
 	 *          -5 <= i <= 5 and i != 0
 	 */
 	LocationChangingShape(Point location, Color color) {
-    	// TODO: Implement this constructor
 		super(location,color);
 		Random rand = new Random();
 		int positiveRandX = rand.nextInt(4) +1;
@@ -57,7 +56,6 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
      * @return the horizontal velocity of this.
      */
     public int getVelocityX() {
-    	// TODO: Implement this method
     	return vx;
     	
     }
@@ -67,7 +65,6 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
      * @return the vertical velocity of this.
      */
     public int getVelocityY() {
-    	// TODO: Implement this method
     	return vy;
     	
     }

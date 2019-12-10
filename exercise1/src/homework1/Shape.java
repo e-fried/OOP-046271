@@ -122,7 +122,9 @@ public abstract class Shape implements Cloneable {
     		shapeClone.color=color;
     	}
     	catch (CloneNotSupportedException e){
-    		
+            System.err.println("An attempt to clone a non-cloneable object was performed.");
+            shapeClone = null;
+            System.exit(1);
     	}
     	checkRep();
     	return shapeClone;

@@ -8,14 +8,37 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+/**
+ * A LocationChangingRectangle is a LocationChangingShape thus, can change its location using its step()
+ * method. A LocationChaningRectangle has a Dimension property that determines the height and width of the rectangle
+ * Thus, a typical LocationChaningrectangle consists of the following set of
+ * properties: {location, color, shape, dimension, velocity}
+ */
+
+
 public class LocationChangingRectangle extends LocationChangingShape {
+	// Abs. Function:
+	// Represents the change in location of the rectangle that was extended by LocationChangingShape units at every step 
+	// the Rectangle is represented by rectDimension(Width, Height) and location
+	// Rep. Invariant:
+	// rectDimension.Width and rectDimension.Height are positive values
 	
 	private Dimension rectDimension;
 	
 	
+	/**
+	 * @effects Initializes this with a a given location, color and dimension.
+	 * @requires dimension.Height and dimension.Width are a positive number       
+	 */
+	
 	LocationChangingRectangle(Point location, Color color,Dimension dimension) {
     	super(location,color);
-    	this.rectDimension=dimension;
+    	assert (dimension.getWidth() >0 ):
+            "Error: Width is not a positive number";
+        assert (dimension.getHeight() >0 ):
+            "Error: Height is not a positive number";
+    	checkRep();
+    	this.rectDimension=(Dimension)dimension.clone();
 		checkRep();
     }
 	
@@ -33,7 +56,7 @@ public class LocationChangingRectangle extends LocationChangingShape {
     		throw new ImpossibleSizeException();
     	}
 		checkRep();
-    	this.rectDimension=dimension;
+    	this.rectDimension=(Dimension)dimension.clone();
 		checkRep();
 
     }
@@ -85,10 +108,10 @@ public class LocationChangingRectangle extends LocationChangingShape {
      * @effects Checks if values in Rectangle are valid
      */
     private void checkRep() {
-    	assert (rectDimension.getWidth() >=0 ):
-        "Error: Width is not a positive number";
-    	assert (rectDimension.getHeight() >=0 ):
-        "Error: Height is not a positive number";
+    	assert (rectDimension.getWidth() >0 ):
+    		"Error: Width is not a positive number";
+    	assert (rectDimension.getHeight() >0 ):
+    		"Error: Height is not a positive number";
     }
 
 
