@@ -5,19 +5,22 @@ import java.util.Random;
 
 
 /**
- * A LocationChaningShape is a Shape that can change its location using its step()
- * method. A LocationChaningShape has a velocity property that determines the speed
- * of location changing.
- * Thus, a typical LocationChaningShape consists of the following set of
- * properties: {location, color, shape, size, velocity}
+ * An Angle changing sector is a sector of an oval that can change its startAngle by STEP_ANGLE using its step()
+ * method at every time unit. A LocationChaningShape has a arcAngle that defines how big the sector will be in degree units with the 
+ * parameter arcAngle, so when step is active, the angle will pivot on its axis 
+ * Thus, a typical AngleChangingSector consists of the following set of
+ * properties: {location, color, shape, size, startAngle, arcAngle}
  */
 public class AngleChangingSector extends Shape implements Animatable {
 
 	// Abs. Function:
-	// Represents the change in location by (vx, vy) units at every step time unit 
-	// vx is the velocity on the X axis, and vy represents the velocity on the Y axis
+	// Represents the change in angle of the sector in degree units at every step time unit 
+	// startAngle is the degree in which the sector begins and arcAngle is the size in degrees of the sector 
 	// Rep. Invariant:
-	// vx and vy are integer numbers
+	// arc angle is a number between [-360,360]
+	// startAngle is any int value
+	// dimension has positive values of height and width only
+
 	private int arcAngle ;
 	private int startAngle ;
 	private static final int MAX_ARC_ANGLE =360;
@@ -27,23 +30,23 @@ public class AngleChangingSector extends Shape implements Animatable {
 
 	
 	/**
-	 * @effects Initializes this with a a given location and color. Each
-	 *          of the horizontal and vertical velocities of the new
-	 *          object is set to a random integral value i such that
-	 *          -5 <= i <= 5 and i != 0
+	 * @effects Initializes this with a a given location, color, dimension, arcAngle and startAngle. 
+	 * @requires dimension.Height and dimension.Width are a positive number
+	 *           arcAngle is a value between [MIN_ARC_ANGLE, MAX_ARC_ANGLE]
+	 *          
 	 */
 	AngleChangingSector(Point location, Color color, int startAngle, int arcAngle, Dimension dimension) {
 		super(location,color);
 		assert (arcAngle <MAX_ARC_ANGLE) && (arcAngle >MIN_ARC_ANGLE) :
             "Error: Illegal arcAngle Value";
-    	assert (dimension.getWidth() >=0 ):
+    	assert (dimension.getWidth() >0 ):
             "Error: Width is not a positive number";
-        assert (dimension.getHeight() >=0 ):
+        assert (dimension.getHeight() >0 ):
             "Error: Height is not a positive number";
 		checkRep();
 		this.startAngle=startAngle;
 		this.arcAngle=arcAngle;
-		this.ovalDimension=dimension;
+		this.ovalDimension=(Dimension) dimension.clone();
 		checkRep();
 	
     }
@@ -72,7 +75,7 @@ public class AngleChangingSector extends Shape implements Animatable {
     		throw new ImpossibleSizeException();
     	}
 		checkRep();
-    	this.ovalDimension=dimension;
+    	this.ovalDimension=(Dimension)dimension.clone();
 		checkRep();
 
     }
@@ -125,14 +128,14 @@ public class AngleChangingSector extends Shape implements Animatable {
 
     }
     /**
-     * @effects Checks if values in shape are valid
+     * @effects Checks if values in angleChangingSector are valid
      */
     private void checkRep() {
 		assert (arcAngle <MAX_ARC_ANGLE) && (arcAngle >MIN_ARC_ANGLE) :
             "Error: Illegal arcAngle Value";
-    	assert (ovalDimension.getWidth() >=0 ):
+    	assert (ovalDimension.getWidth() >0 ):
             "Error: Width is not a positive number";
-        assert (ovalDimension.getHeight() >=0 ):
+        assert (ovalDimension.getHeight() >0 ):
             "Error: Height is not a positive number";
 
     }
