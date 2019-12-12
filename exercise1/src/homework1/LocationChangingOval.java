@@ -26,7 +26,8 @@ public class LocationChangingOval extends LocationChangingShape {
 	
 	/**
 	 * @effects Initializes this with a a given location, color and dimension.
-	 * @requires dimension.Height and dimension.Width are a positive number       
+	 * @requires dimension.Height and dimension.Width are a positive number   
+	 * dimension in not a null pointer    
 	 */
 	
 	LocationChangingOval(Point location, Color color,Dimension dimension) {
