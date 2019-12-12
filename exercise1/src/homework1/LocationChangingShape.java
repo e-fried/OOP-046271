@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * A LocationChaningShape is a Shape that can change its location using its step()
- * method. A LocationChaningShape has a velocity property that determines the speed
+ * method. A LocationChangingShape has a velocity property that determines the speed
  * of location changing.
  * Thus, a typical LocationChaningShape consists of the following set of
  * properties: {location, color, shape, size, velocity}
@@ -138,20 +138,13 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
      */
 	@Override
     public Object clone() {
-    	checkRep();
     	LocationChangingShape locationChangeClone;
     	locationChangeClone=(LocationChangingShape)super.clone();
     	locationChangeClone.vx=this.vx;
     	locationChangeClone.vy=this.vy;
-    	checkRep();
     	return locationChangeClone;
 
     }
-    /**
-     * @effects Checks if values in shape are valid
-     */
-    private void checkRep() {
 
-    }
 }
 

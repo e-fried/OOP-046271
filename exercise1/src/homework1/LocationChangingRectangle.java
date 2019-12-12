@@ -28,11 +28,14 @@ public class LocationChangingRectangle extends LocationChangingShape {
 	
 	/**
 	 * @effects Initializes this with a a given location, color and dimension.
-	 * @requires dimension.Height and dimension.Width are a positive number       
+	 * @requires dimension.Height and dimension.Width are a positive number
+	 * dimension is not a Null pointer       
 	 */
 	
 	LocationChangingRectangle(Point location, Color color,Dimension dimension) {
     	super(location,color);
+        assert (dimension != null):
+            "Error: dimnsion is null pointer";
     	assert (dimension.getWidth() >0 ):
             "Error: Width is not a positive number";
         assert (dimension.getHeight() >0 ):
@@ -108,6 +111,8 @@ public class LocationChangingRectangle extends LocationChangingShape {
      * @effects Checks if values in Rectangle are valid
      */
     private void checkRep() {
+        assert (rectDimension != null):
+            "Error: dimnsion is null pointer";
     	assert (rectDimension.getWidth() >0 ):
     		"Error: Width is not a positive number";
     	assert (rectDimension.getHeight() >0 ):

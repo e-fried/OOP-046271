@@ -33,10 +33,13 @@ public class AngleChangingSector extends Shape implements Animatable {
 	 * @effects Initializes this with a a given location, color, dimension, arcAngle and startAngle. 
 	 * @requires dimension.Height and dimension.Width are a positive number
 	 *           arcAngle is a value between [MIN_ARC_ANGLE, MAX_ARC_ANGLE]
+	 *           dimension in not a null pointer
 	 *          
 	 */
 	AngleChangingSector(Point location, Color color, int startAngle, int arcAngle, Dimension dimension) {
 		super(location,color);
+        assert (dimension != null):
+            "Error: dimnsion is null pointer";
 		assert (arcAngle <MAX_ARC_ANGLE) && (arcAngle >MIN_ARC_ANGLE) :
             "Error: Illegal arcAngle Value";
     	assert (dimension.getWidth() >0 ):
@@ -131,6 +134,8 @@ public class AngleChangingSector extends Shape implements Animatable {
      * @effects Checks if values in angleChangingSector are valid
      */
     private void checkRep() {
+        assert (ovalDimension != null):
+            "Error: dimnsion is null pointer";
 		assert (arcAngle <MAX_ARC_ANGLE) && (arcAngle >MIN_ARC_ANGLE) :
             "Error: Illegal arcAngle Value";
     	assert (ovalDimension.getWidth() >0 ):

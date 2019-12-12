@@ -31,6 +31,8 @@ public class LocationChangingOval extends LocationChangingShape {
 	
 	LocationChangingOval(Point location, Color color,Dimension dimension) {
     	super(location,color);
+        assert (dimension != null):
+            "Error: dimnsion is null pointer";
     	assert (dimension.getWidth() >0 ):
     		"Error: Width is not a positive number";
     	assert (dimension.getHeight() >0 ):
@@ -106,6 +108,8 @@ public class LocationChangingOval extends LocationChangingShape {
      * @effects Checks if values in shape are valid
      */
     private void checkRep() {
+        assert (ovalDimension != null):
+            "Error: dimnsion is null pointer";
     	assert (ovalDimension.getWidth() >0 ):
     		"Error: Width is not a positive number";
     	assert (ovalDimension.getHeight() >0 ):
