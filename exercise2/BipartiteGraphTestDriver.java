@@ -15,8 +15,7 @@ public class BipartiteGraphTestDriver {
      * @effects Constructs a new test driver.
      */
     public BipartiteGraphTestDriver () {
-    	// TODO: Implement this constructor
-       
+    	this.graphs= new HashMap<String, BipartiteGraph<String>>();
        
     }
 
@@ -28,7 +27,14 @@ public class BipartiteGraphTestDriver {
      * 			empty.
      */
     public void createGraph(String graphName) {
-        // TODO: Implement this method
+        assert (graphName != null):
+        	"Error: one of inputs is null pointer";
+        if(graphs.containsKey(graphName)) {
+        	System.err.println("Error: graph with this label already Exists");
+        	return;
+        }
+        BipartiteGraph newGraph= new BipartiteGraph<String>(graphName); 
+        graphs.put(graphName,newGraph);
         
     	
     }
@@ -45,8 +51,16 @@ public class BipartiteGraphTestDriver {
      * 			graph named graphName.
      */
     public void addBlackNode(String graphName, String nodeName) {
-    	// TODO: Implement this method
-    	
+        assert (graphName != null || nodeName != null):
+        	"Error: one of inputs is null pointer";
+        if(graphs.containsKey(graphName)) {
+        	if(!(graphs.get(graphName).containsVertice(nodeName))) {
+            	graphs.get(graphName).addBlackVertice(nodeName);
+
+        	}
+        	System.err.println("Error: vertice with this label already Exists");
+        }
+        System.err.println("Error: Graph with the label graphName doesn't exist");
     	
     }
 
@@ -62,7 +76,16 @@ public class BipartiteGraphTestDriver {
      * 			graph named graphName.
      */
     public void addWhiteNode(String graphName, String nodeName) {
-    	//TODO: Implement this method
+        assert (graphName != null || nodeName != null):
+        	"Error: one of inputs is null pointer";
+        if(graphs.containsKey(graphName)) {
+        	if(!(graphs.get(graphName).containsVertice(nodeName))) {
+            	graphs.get(graphName).addWhiteVertice(nodeName);
+
+        	}
+        	System.err.println("Error: vertice with this label already Exists");
+        }
+        System.err.println("Error: Graph with the label graphName doesn't exist");
     	
     	
     }

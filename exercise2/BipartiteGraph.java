@@ -1,4 +1,4 @@
-package homework2;
+
 import java.util.*;
 /**
  * A BipartiteGraph is a Bipartite Graph where there are two types of vertices -
@@ -97,6 +97,17 @@ public class BipartiteGraph <L>{
         verticesHashMap.put(verticeLabel, newVertice);
         checkRep();
         
+    }
+    
+    public boolean containsVertice(L verticeLabel) {
+        assert (verticeLabel != null):
+        	"Error: verticeLabel is null pointer";
+        checkRep();
+        if(verticesHashMap.containsKey(veticeLabel){
+        	return true;
+        }
+        return false;
+    	
     }
     
     

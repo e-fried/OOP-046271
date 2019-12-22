@@ -1,4 +1,4 @@
-package homework2;
+
 
 public class Edge <L>{
 	
