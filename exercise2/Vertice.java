@@ -1,3 +1,4 @@
+package homework2;
 
 
 import java.awt.Color;
@@ -12,8 +13,9 @@ public class Vertice <L>{
 	private ArrayList<L> childrenList;
 	private ArrayList<L> parentList;
 	private HashMap <L, Edge> childEdgeList;
+	private HashMap <L, Edge> parentEdgeList;
 	String verticeColor;
-    private L label;
+    private final L label;
     
     
 
@@ -24,7 +26,8 @@ public class Vertice <L>{
     	//	"Wrong color";
     	this.childrenList= new ArrayList<L>();
     	this.parentList= new ArrayList<L>();
-    	this.childEdgeList= new HashMap <L, Edge>;
+    	this.childEdgeList= new HashMap <L, Edge>();
+    	this.parentEdgeList= new HashMap <L, Edge>();
     	this.verticeColor=color;
     	this.label=label;
     	checkRep();	
@@ -91,8 +94,8 @@ public class Vertice <L>{
      */  
     
     
-    public boolean addChild(L childLabel, L edgeLabel) {
-        if (edgeLabel == null || childLabel == null){
+    public boolean addChild(L childLabel, L edgeLabel, Edge newEdge) {
+        if (edgeLabel == null || childLabel == null || newEdge ==null){
         	System.err.println("Error: labels are null pointers");
             return false;
         }
@@ -102,8 +105,7 @@ public class Vertice <L>{
         	return false;
         }
         childrenList.add(childLabel);
-        Edge newEdge= new Edge<L>(edgeLabel, this.label,childLabel );
-        this.childEdgeList.add(edgeLabel,newEdge );
+        this.childEdgeList.put(edgeLabel,newEdge );
         checkRep();
         return true;
     	
@@ -118,19 +120,18 @@ public class Vertice <L>{
      *
      */  
     
-    public boolean addParent(L parentLabel, L edgeLabel) {
-        if (edgeLabel == null || parentLabel == null){
+    public boolean addParent(L parentLabel, L edgeLabel, Edge newEdge) {
+        if (edgeLabel == null || parentLabel == null || newEdge ==null){
         	System.err.println("Error: labels are null pointers");
             return false;
         }
         checkRep();
-        if(childrenList.contains(parentLabel) ) {
-        	System.err.println("Error: edgae already exists from parent to child");
+        if(childrenList.contains(parentLabel) ||  parentEdgeList.containsKey(edgeLabel) ) {
+        	System.err.println("Error: edge already exists from parent to child");
         	return false;
         }
         parentList.add(parentLabel);
-        //Edge newEdge= new Edge<L>(edgeLabel, this.label,ParentLabel );
-        //this.childEdgeList.add(edgeLabel,newEdge );
+        this.parentEdgeList.put(edgeLabel,newEdge );
         checkRep();
         return true;
     	
@@ -197,11 +198,27 @@ public class Vertice <L>{
      * @modifies none
      * @effects if one of vertices's edges contain an edge with label: edgeLabel, return true. if edgeLabel doesn't exist return false;
      */
-    public boolean doesEdgeLabelExist(L edgeLabel) {
+    public boolean doesChildEdgeExist(L edgeLabel) {
     	assert (edgeLabel != null):
         	"Error: Label is null pointer";
     	checkRep();
     	if(childEdgeList.containsKey(edgeLabel)) {
+        	checkRep();
+    		return true;
+    	}
+    	checkRep();
+    	return false;
+    	
+    }
+    /**
+     * @modifies none
+     * @effects if one of vertices's edges contain an edge with label: edgeLabel, return true. if edgeLabel doesn't exist return false;
+     */
+    public boolean doesParentEdgeExist(L edgeLabel) {
+    	assert (edgeLabel != null):
+        	"Error: Label is null pointer";
+    	checkRep();
+    	if(parentEdgeList.containsKey(edgeLabel)) {
         	checkRep();
     		return true;
     	}
