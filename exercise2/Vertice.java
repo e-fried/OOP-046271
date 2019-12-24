@@ -193,6 +193,23 @@ public class Vertice <L>{
     	
     }
     
+	    /**
+     * @modifies none
+     * @effects if one of vertices's incoming edges contain an edge with label: edgeLabel, return parent label. if edgeLabel doesn't exist return null;
+     */
+    public L getparentByEdgeLabel(L edgeLabel) {
+    	assert (edgeLabel != null):
+        	"Error: Label is null pointer";
+    	checkRep();
+    	if(parentEdgeList.containsKey(edgeLabel)) {
+    		L parentLabel =(L)((childEdgeList.get(edgeLabel)).getParentLabel()); 
+        	checkRep();
+    		return parentLabel;
+    	}
+    	checkRep();
+    	return null;
+    	
+    }
     /**
      * @modifies none
      * @effects if one of vertices's edges contain an edge with label: edgeLabel, return true. if edgeLabel doesn't exist return false;
@@ -247,6 +264,32 @@ public class Vertice <L>{
      * @effects assures this and its fields don't change to invalid values
      */
     private void checkRep() {
+    	assert (this.label != null):
+        	"Error: Label is null pointer";
+    	assert (this.verticeColor.equals("Black") || this.verticeColor.equals("White")):
+        	"Error: invaid color";
+    	// check that there aren't 2 labels that are equal in childrenList
+    	Iterator<L> childenIter = this.childrenList.iterator();
+    	while(childenIter.hasNext()) {
+    		Iterator<L> tempIter=childenIter;
+    		while(tempIter.hasNext()) {
+    			assert(!(childenIter.equals(tempIter.next()))):
+    				"Error: Label is null pointer";
+    		}
+    		childenIter.next();
+    		
+    	}
+    	// check that there aren't 2 labels that are equal in childrenList
+    	Iterator<L> parentIter = this.parentList.iterator();
+    	while(parentIter.hasNext()) {
+    		Iterator<L> tempIter=parentIter;
+    		while(tempIter.hasNext()) {
+    			assert(!(parentIter.equals(tempIter.next()))):
+    				"Error: Label is null pointer";
+    		}
+    		parentIter.next();
+    		
+    	}
     	
     }
 	
