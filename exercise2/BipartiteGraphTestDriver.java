@@ -33,7 +33,7 @@ public class BipartiteGraphTestDriver {
         	System.err.println("Error: graph with this label already Exists");
         	return;
         }
-        BipartiteGraph newGraph= new BipartiteGraph<String>(graphName); 
+        BipartiteGraph<String> newGraph= new BipartiteGraph<String>(graphName); 
         graphs.put(graphName,newGraph);
         
     	
@@ -108,7 +108,11 @@ public class BipartiteGraphTestDriver {
     public void addEdge(String graphName,
     					String parentName, String childName, 
                         String edgeLabel) {
-    	//TODO: Implement this method
+        assert (graphName != null || parentName != null || childName != null || edgeLabel != null):
+        	"Error: one of inputs is null pointer";
+        if(graphs.containsKey(graphName)) {
+        	graphs.get(graphName).addEdge(edgeLabel, childName, parentName);
+        }
     	
     	
     }
@@ -120,8 +124,14 @@ public class BipartiteGraphTestDriver {
      * 		   in the graph graphName, in alphabetical order.
      */
     public String listBlackNodes(String graphName) {
-    	//TODO: Implement this method
-    	
+    	assert(graphName != null):
+    		"Error: graphName is a null pointer";
+    	if(graphs.containsKey(graphName)) {
+    		ArrayList<String> blackList =graphs.get(graphName).listBlackVertices();
+    		java.util.Collections.sort(blackList);
+    		return String.join(" ", blackList);
+    	}
+    	return null;
     	
     }
 
@@ -132,7 +142,14 @@ public class BipartiteGraphTestDriver {
      * 		   in the graph graphName, in alphabetical order.
      */
     public String listWhiteNodes(String graphName) {
-    	//TODO: Implement this method
+    	assert(graphName != null):
+    		"Error: graphName is a null pointer";
+    	if(graphs.containsKey(graphName)) {
+    		ArrayList<String> whiteList =graphs.get(graphName).listWhiteVertices();
+    		java.util.Collections.sort(whiteList);
+    		return String.join(" ", whiteList);
+    	}
+    	return null;
     	
     	
     }
@@ -144,8 +161,15 @@ public class BipartiteGraphTestDriver {
      * 		   parentName in the graph graphName, in alphabetical order.
      */
     public String listChildren(String graphName, String parentName) {
-    	//TODO: Implement this method
-    	
+    	assert(graphName != null || parentName != null):
+    		"Error: graphName or paretnName are a null pointer";
+    	if(graphs.containsKey(graphName)) {
+    		ArrayList<String> childrenList =graphs.get(graphName).getChildrenList(parentName);
+    		if(childrenList !=null) {
+    			java.util.Collections.sort(childrenList);
+    			return String.join(" ", childrenList);
+    		}
+    	}
     	
     }
 
@@ -156,9 +180,15 @@ public class BipartiteGraphTestDriver {
      * 		   childName in the graph graphName, in alphabetical order.
      */
     public String listParents(String graphName, String childName) {
-    	//TODO: Implement this method
-    	
-    	
+    	assert(graphName != null || childName != null):
+    		"Error: graphName or paretnName are a null pointer";
+    	if(graphs.containsKey(graphName)) {
+    		ArrayList<String> parentList =graphs.get(graphName).getParentList(childName);
+    		if(parentList !=null) {
+    			java.util.Collections.sort(parentList);
+    			return String.join(" ", parentList);
+    		}
+    	}
     }
 
     
