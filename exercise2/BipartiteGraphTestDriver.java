@@ -200,8 +200,13 @@ public class BipartiteGraphTestDriver {
      */
     public String getChildByEdgeLabel(String graphName, String parentName,
     								   String edgeLabel) {
-    	//TODO: Implement this method
-    	
+    	assert( (graphName != null) || (parentName != null) || (edgeLabel != null)):
+    		"Error: inputs are a null pointer";
+    	if(graphs.containsKey(graphName)) {
+    		String childLabel= graphs.get(graphName).childDetect(edgeLabel, parentName);
+    		return childLabel;
+    	}
+    	return null;
     	
     }
 
@@ -214,7 +219,13 @@ public class BipartiteGraphTestDriver {
      */
     public String getParentByEdgeLabel(String graphName, String childName,
     									String edgeLabel) {
-    	//TODO: Implement this method
+    	assert( (graphName != null) || (childName != null) || (edgeLabel != null)):
+    		"Error: inputs are a null pointer";
+    	if(graphs.containsKey(graphName)) {
+    		String parentLabel= graphs.get(graphName).parentDetect(edgeLabel, childName);
+    		return parentLabel;
+    	}
+    	return null;
     	
     	
     }
