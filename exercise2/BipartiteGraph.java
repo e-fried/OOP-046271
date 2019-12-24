@@ -26,7 +26,10 @@ public class BipartiteGraph <L>{
         this.graphLabel = graphLabel_;
         checkRep();        
     }
-    
+    /**
+     * @modifies none
+     * @effects adds legal edge from src vertice with srcLabel  to dest vertice with destLabel;
+     */
     public void addEdge(L edgeLabel, L srcLabel, L destLabel ) {
         checkRep();
         assert (edgeLabel != null || srcLabel != null || destLabel != null):
@@ -141,7 +144,72 @@ public class BipartiteGraph <L>{
     	checkRep();
     	return blackList;
     }
+    public L childDetect(L edgeLabel, L srcLabel){
+        assert (edgeLabel != null || srcLabel != null):
+        	"Error: one of inputs is null pointer";
+        if (!verticesHashMap.containsKey(srcLabel)){
+            System.out.println("Input vertice dosn't exist in the graph");
+            return null;
+        }
+        if (!verticesHashMap.get(srcLabel).doesChildEdgeExist(edgeLabel)){
+            System.out.println("The edge lable name dose not exist as a child edge ");
+            return null;
+        }
+        return verticesHashMap.get(srcLabel).getChildByEdgeLabel(edgeLabel);
+          	
+    }
+    
+    public L parentDetect(L edgeLabel, L destLabel){
+        assert (edgeLabel != null || destLabel != null):
+        	"Error: one of inputs is null pointer";
+        if (!verticesHashMap.containsKey(destLabel)){
+            System.out.println("Input vertice dosn't exist in the graph");
+            return null;
+        }
+        if (!verticesHashMap.get(destLabel).doesParentEdgeExist(edgeLabel)){
+            System.out.println("The edge lable name dose not exist as a father edge ");
+            return null;
+        }
+        return verticesHashMap.get(destLabel).getParentByEdgeLabel(edgeLabel);
+    	
+    }
+    
+    public ArrayList<L> getChildrenList(L verticeLabel) {
+        assert (verticeLabel != null):
+        	"Error: verticeLabel is null pointer";
+    	checkRep();
+    	if(verticesHashMap.containsKey(verticeLabel)) {
+    		ArrayList <L> childrenList=verticesHashMap.get(verticeLabel).listChildren();
+    		checkRep();
+    		return childrenList;
+    	}
+    	else {
+            System.err.println("there is no such Node");
+            return null;
+    	}
+    }
+    
+    public ArrayList<L> getParentList(L verticeLabel) {
+        assert (verticeLabel != null):
+        	"Error: verticeLabel is null pointer";
+    	checkRep();
+    	if(verticesHashMap.containsKey(verticeLabel)) {
+    		ArrayList <L> parentList=verticesHashMap.get(verticeLabel).listParents();	
+    		checkRep();
+    		return parentList;
+    	}
+    	else {
+            System.err.println("there is no such Node");
+            return null;
+    	}
+    }
+    
     private void checkRep(){
+        assert (graphLabel != null):
+        	"Error: graphLabel is null pointer";
+        assert (verticesHashMap != null):
+        	"Error: verticesHashMap is null pointer";
+        
     	
     }
     
@@ -149,3 +217,4 @@ public class BipartiteGraph <L>{
 
 
 }
+
