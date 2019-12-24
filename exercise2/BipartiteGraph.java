@@ -1,4 +1,4 @@
-
+package homework2;
 import java.util.*;
 /**
  * A BipartiteGraph is a Bipartite Graph where there are two types of vertices -
@@ -31,39 +31,46 @@ public class BipartiteGraph <L>{
         checkRep();
         assert (edgeLabel != null || srcLabel != null || destLabel != null):
         	"Error: one of inputs is null pointer";
-
+        //check vertices existence
         if (!verticesHashMap.containsKey(srcLabel) || !verticesHashMap.containsKey(destLabel)){
             System.out.println("One of input vertices dosn't exist in the graph");
             return;
         }
+        //check color laws
         if ( this.verticesHashMap.get(srcLabel).getColor() == this.verticesHashMap.get(destLabel).getColor()){
             System.out.println("Two vertices with the same color must not be connected");
             return;
         }
-        // check if we have some edge from parent -> child
-        Node<L> parentNode = this.nodeHashMap.get(parentLabel);
-        if (parentNode.childrenContainsLabel(childLabel)){
-            System.err.println("there is already an edge from parent->child");
-            return false;
+        //check edges laws
+        if (verticesHashMap.get(destLabel).hasParentWithLabel(srcLabel)){
+            System.out.println("There is forbbiden to create another edge from father vertice to child vertice");
+            return;
+        }
+        //check child edge label laws
+        if (verticesHashMap.get(destLabel).doesParentEdgeExist(edgeLabel)){
+            System.out.println("There is forbbiden to create another edge to child "
+            		+ "vertice with the same label name");
+            return;
+        }
+        //check father edge label laws
+        if (verticesHashMap.get(srcLabel).doesChildEdgeExist(edgeLabel)){
+            System.out.println("There is forbbiden to create another edge from father "
+            		+ "vertice with the same label name");
+            return;
         }
 
-        // check if we have edge with label X from parent
-        if (parentNode.childrenContainsEdgeLabel(edgeLabel)){
-            System.err.println("there is already an edge from parent with edge label");
-            return false;
-        }
+        
+        Edge<L> edge = new Edge<L>(edgeLabel ,srcLabel ,destLabel);
 
-        // check if we have edge from some parent to child with label X
-        Node<L> childNode = this.nodeHashMap.get(childLabel);
-        if (childNode.parentsContainsEdgeLabel(edgeLabel)){
-            System.err.println("there is already an edge to child with edge label");
-            return false;
+        if (!verticesHashMap.get(srcLabel).addChild(destLabel, edgeLabel, edge)){
+        	System.out.println("addChild error");
         }
-
-        parentNode.addChild(childLabel, edgeLabel);
-        childNode.addParent(parentLabel,edgeLabel);
+        
+        if(!verticesHashMap.get(destLabel).addParent(srcLabel,edgeLabel, edge)){
+        	System.out.println("addParent error");
+        }
         checkRep();
-        return true;
+        return;
     }
     
     
@@ -107,6 +114,34 @@ public class BipartiteGraph <L>{
         	return true;
         }
         return false;
+    	
+    }
+    public ArrayList<L> listWhiteVertices() {
+    	ArrayList <L> whiteList=new ArrayList<L>();
+    	String str = "White";
+    	for (Vertice<L> vertice : verticesHashMap.values()) {
+    	    if(vertice.getColor().equals(str)) {
+    	    	whiteList.add(vertice.getLabel());
+    	    }
+    	}
+    	
+    	checkRep();
+    	return whiteList;
+    }
+
+    public ArrayList<L> listBlackVertices() {
+    	ArrayList <L> blackList=new ArrayList<L>();
+    	String str = "Black";
+    	for (Vertice<L> vertice : verticesHashMap.values()) {
+    	    if(vertice.getColor().equals(str)) {
+    	    	blackList.add( vertice.getLabel());
+    	    }
+    	}
+    	
+    	checkRep();
+    	return blackList;
+    }
+    private void checkRep(){
     	
     }
     
