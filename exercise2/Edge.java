@@ -14,7 +14,7 @@ public class Edge <L>{
 	public L getEdgeLabel(){
 		return (this.edgeLabel);
 	}
-	public L getFatherLabel(){
+	public L getParentLabel(){
 		return (this.srcLabel);
 	}
 	public L getChildLabel(){
