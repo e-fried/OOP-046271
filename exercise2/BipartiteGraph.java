@@ -103,7 +103,7 @@ public class BipartiteGraph <L>{
         assert (verticeLabel != null):
         	"Error: verticeLabel is null pointer";
         checkRep();
-        if(verticesHashMap.containsKey(veticeLabel){
+        if(verticesHashMap.containsKey(verticeLabel)){
         	return true;
         }
         return false;

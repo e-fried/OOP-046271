@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.ListIterator;
 
 public class Vertice <L>{
 
@@ -141,7 +142,7 @@ public class Vertice <L>{
      */  
     public ArrayList<L> listChildren() {
         checkRep();
-    	final ArrayList <L> returnList=this.childrenList;
+    	final ArrayList <L> returnList=copyList(this.childrenList);
         checkRep();
         return returnList;
     		
@@ -153,10 +154,25 @@ public class Vertice <L>{
      */  
     public ArrayList<L> listParents() {
         checkRep();
-    	final ArrayList <L> returnList=this.parentList;
+    	final ArrayList <L> returnList=copyList(this.parentList);
         checkRep();
         return returnList;
     		
+    }
+    
+    
+   private ArrayList<L> copyList(ArrayList<L> listToCopy){
+    	assert (listToCopy != null):
+        	"Error: Label is null pointer";
+    	checkRep();
+    	ArrayList<L> listToReturn=new ArrayList<L>();
+    	
+    	Iterator<L> iter = listToCopy.iterator();
+    	while(iter.hasNext()) {
+    		listToReturn.add(iter.next());
+    	}
+    	checkRep();
+    	return listToReturn;
     }
     
     /**
