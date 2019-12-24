@@ -1,19 +1,18 @@
 package homework2;
 
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.ListIterator;
+
 
 public class Vertice <L>{
 
 	
 	private ArrayList<L> childrenList;
 	private ArrayList<L> parentList;
-	private HashMap <L, Edge> childEdgeList;
-	private HashMap <L, Edge> parentEdgeList;
+	private HashMap <L, Edge<L>> childEdgeList;
+	private HashMap <L, Edge<L>> parentEdgeList;
 	String verticeColor;
     private final L label;
     
@@ -26,8 +25,8 @@ public class Vertice <L>{
     	//	"Wrong color";
     	this.childrenList= new ArrayList<L>();
     	this.parentList= new ArrayList<L>();
-    	this.childEdgeList= new HashMap <L, Edge>();
-    	this.parentEdgeList= new HashMap <L, Edge>();
+    	this.childEdgeList= new HashMap <L, Edge<L>>();
+    	this.parentEdgeList= new HashMap <L, Edge<L>>();
     	this.verticeColor=color;
     	this.label=label;
     	checkRep();	
@@ -94,7 +93,7 @@ public class Vertice <L>{
      */  
     
     
-    public boolean addChild(L childLabel, L edgeLabel, Edge newEdge) {
+    public boolean addChild(L childLabel, L edgeLabel, Edge<L> newEdge) {
         if (edgeLabel == null || childLabel == null || newEdge ==null){
         	System.err.println("Error: labels are null pointers");
             return false;
@@ -120,7 +119,7 @@ public class Vertice <L>{
      *
      */  
     
-    public boolean addParent(L parentLabel, L edgeLabel, Edge newEdge) {
+    public boolean addParent(L parentLabel, L edgeLabel, Edge<L> newEdge) {
         if (edgeLabel == null || parentLabel == null || newEdge ==null){
         	System.err.println("Error: labels are null pointers");
             return false;
