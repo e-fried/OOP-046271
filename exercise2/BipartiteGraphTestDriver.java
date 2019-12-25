@@ -56,9 +56,11 @@ public class BipartiteGraphTestDriver {
         if(graphs.containsKey(graphName)) {
         	if(!(graphs.get(graphName).containsVertice(nodeName))) {
             	graphs.get(graphName).addBlackVertice(nodeName);
+            	return;
 
         	}
         	System.err.println("Error: vertice with this label already Exists");
+        	return;
         }
         System.err.println("Error: Graph with the label graphName doesn't exist");
     	
@@ -81,9 +83,10 @@ public class BipartiteGraphTestDriver {
         if(graphs.containsKey(graphName)) {
         	if(!(graphs.get(graphName).containsVertice(nodeName))) {
             	graphs.get(graphName).addWhiteVertice(nodeName);
-
+            	return;
         	}
         	System.err.println("Error: vertice with this label already Exists");
+        	return;
         }
         System.err.println("Error: Graph with the label graphName doesn't exist");
     	
@@ -111,7 +114,7 @@ public class BipartiteGraphTestDriver {
         assert (graphName != null || parentName != null || childName != null || edgeLabel != null):
         	"Error: one of inputs is null pointer";
         if(graphs.containsKey(graphName)) {
-        	graphs.get(graphName).addEdge(edgeLabel, childName, parentName);
+        	graphs.get(graphName).addEdge(edgeLabel, parentName,childName );
         }
     	
     	
@@ -170,6 +173,7 @@ public class BipartiteGraphTestDriver {
     			return String.join(" ", childrenList);
     		}
     	}
+		return null;
     	
     }
 
@@ -189,6 +193,7 @@ public class BipartiteGraphTestDriver {
     			return String.join(" ", parentList);
     		}
     	}
+		return null;
     }
 
     

@@ -17,9 +17,14 @@ public class BipartiteGraph <L>{
 	// Vertices != null && Edges != null && Label != null  
 	private HashMap<L, Vertice<L>> verticesHashMap; 
 	private String graphLabel;
-
+    /**
+     * @requires graphLabel_ != null
+     * @modifies this
+     * @effects Creates a new graph named graphLabel_. The graph is initially
+     * 			empty.
+     */
     public BipartiteGraph(String graphLabel_) {
-        assert (graphLabel != null):
+        assert (graphLabel_ != null):
         	"Error: graphLabel is null pointer";
         
         this.verticesHashMap = new HashMap<>();
@@ -217,4 +222,3 @@ public class BipartiteGraph <L>{
 
 
 }
-

@@ -1,9 +1,12 @@
 package homework2;
 
 
+import java.security.KeyStore.Entry;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 
 
 public class Vertice <L>{
@@ -197,12 +200,12 @@ public class Vertice <L>{
      * @modifies none
      * @effects if one of vertices's incoming edges contain an edge with label: edgeLabel, return parent label. if edgeLabel doesn't exist return null;
      */
-    public L getparentByEdgeLabel(L edgeLabel) {
+    public L getParentByEdgeLabel(L edgeLabel) {
     	assert (edgeLabel != null):
         	"Error: Label is null pointer";
     	checkRep();
     	if(parentEdgeList.containsKey(edgeLabel)) {
-    		L parentLabel =(L)((childEdgeList.get(edgeLabel)).getParentLabel()); 
+    		L parentLabel =(L)((parentEdgeList.get(edgeLabel)).getParentLabel()); 
         	checkRep();
     		return parentLabel;
     	}
@@ -268,8 +271,17 @@ public class Vertice <L>{
         	"Error: Label is null pointer";
     	assert (this.verticeColor.equals("Black") || this.verticeColor.equals("White")):
         	"Error: invaid color";
+    	assert (this.childrenList !=null):
+        	"Error: childrenList is a null pointer";
+    	assert (this.parentList !=null):
+        	"Error: parentList is a null pointer";
+    	assert (this.childEdgeList !=null):
+        	"Error: childEdgeList is a null pointer";
+    	assert (this.parentEdgeList !=null):
+        	"Error: parentEdgeList is a null pointer";
+    	
     	// check that there aren't 2 labels that are equal in childrenList
-    	Iterator<L> childenIter = this.childrenList.iterator();
+    	/*Iterator<L> childenIter = this.childrenList.iterator();
     	while(childenIter.hasNext()) {
     		Iterator<L> tempIter=childenIter;
     		while(tempIter.hasNext()) {
@@ -278,8 +290,34 @@ public class Vertice <L>{
     		}
     		childenIter.next();
     		
-    	}
+    	}*/
+      
+        HashSet <L> noDupChildrenSet = new HashSet<L>(this.childrenList);
+        assert(noDupChildrenSet.size()>= childrenList.size()):
+        	"Error: there are duplicate labels in childernList";
+        
+        HashSet <L> noDupParentSet = new HashSet<L>(this.parentList);
+        assert(noDupParentSet.size()>= parentList.size()):
+        	"Error: there are duplicate labels in ParentList";
+        
+//        Iterator<java.util.Map.Entry<L, Edge<L>>> cIt = childEdgeList.entrySet().iterator();
+//        while (cIt.hasNext()) {
+//            Map.Entry pair = (Map.Entry)cIt.next();
+//            assert(pair.getKey().equals(((Edge<L>) pair.getValue()).getChildLabel())):
+//            	"Error vertice child label doesn't match childEdgeList label ";
+//            cIt.remove(); // avoids a ConcurrentModificationException
+//        }
+//        Iterator<java.util.Map.Entry<L, Edge<L>>> pIt = parentEdgeList.entrySet().iterator();
+//        while (pIt.hasNext()) {
+//            Map.Entry pair = (Map.Entry)pIt.next();
+//            assert(pair.getKey().equals(((Edge<L>) pair.getValue()).getParentLabel())):
+//            	"Error vertice parent label doesn't match parentEdgeList label ";
+//            pIt.remove(); // avoids a ConcurrentModificationException
+//        }
+
+
     	// check that there aren't 2 labels that are equal in childrenList
+        /*
     	Iterator<L> parentIter = this.parentList.iterator();
     	while(parentIter.hasNext()) {
     		Iterator<L> tempIter=parentIter;
@@ -290,9 +328,38 @@ public class Vertice <L>{
     		parentIter.next();
     		
     	}
+    	*/
     	
     }
-	
+    public boolean removeChild(L childLabel, L edgeLabel) {
+        if (edgeLabel == null || childLabel == null){
+        	System.err.println("Error: labels are null pointers");
+            return false;
+        }
+        checkRep();
+        childrenList.remove(childLabel);
+        this.childEdgeList.remove(edgeLabel);
+        checkRep();
+        return true;	
+    }
+    
+    /**
+     * @modifies parentList
+     * @effects removes ParentLabel to parent list 
+     *
+     */  
+    
+    public boolean removeParent(L parentLabel, L edgeLabel) {
+        if (edgeLabel == null || parentLabel == null){
+        	System.err.println("Error: labels are null pointers");
+            return false;
+        }
+        checkRep();
+        parentList.remove(parentLabel);
+        this.parentEdgeList.remove(edgeLabel);
+        checkRep();
+        return true;	
+    }
     
 
 }
