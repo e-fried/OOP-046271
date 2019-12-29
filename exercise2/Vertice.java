@@ -8,9 +8,22 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
-
+/**
+ * This class implements a vertice in a BipartiteGraph. 
+ * A typical vertice consists of the following set of
+ * properties: {color, label}
+ * the vertice can return a list of its children or parent veritces in O(1)
+ * the vertice can return an edge that leaves or enters it in  O(1)
+ */
 public class Vertice <L>{
-
+	// Abs. Function:
+	// Represents a Black or White vertice in a Bipartite graph, the vertice has a unique label
+	// the vertice can be connected to other vertices with ingoing or outgoing edges
+	// Rep. Invariant:
+	// vertice has no null values in fields
+	// childrenList, ParentList, childEdgeList, parentEdgeList have no duplicate label values
+	// verticeColor can be Black or White only
+	
 	
 	private ArrayList<L> childrenList;
 	private ArrayList<L> parentList;
@@ -19,7 +32,11 @@ public class Vertice <L>{
 	String verticeColor;
     private final L label;
     
-    
+        
+	/**
+	 * @effects Initializes this with a a given label and color.
+	 * @requires Label !=null ,color !=null     
+	 */
 
     public Vertice(L label, String color) {
     	assert(label != null):
@@ -38,7 +55,7 @@ public class Vertice <L>{
     
     /**
      * @modifies none
-     * @effects if this.childrenList has child with Label label return true, else return false;
+     * @effects if this.childrenList has child with Label- label return true, else return false;
      */ 
     public boolean doesChildExist(L label) {
     	checkRep();
@@ -55,7 +72,7 @@ public class Vertice <L>{
     
     /**
      * @modifies none
-     * @effects if this.parentList has parent with Label label return true, else return false;
+     * @effects if this.parentList has parent with Label-label return true, else return false;
      */    
     public boolean doesParentExist(L label) {
     	checkRep();
@@ -73,7 +90,7 @@ public class Vertice <L>{
     /**
      * @modifies none
      * @effects returns color of this
-     */    
+     */  
     public String getColor() {
     	checkRep();
     	return this.verticeColor;
@@ -82,7 +99,7 @@ public class Vertice <L>{
     /**
      * @modifies none
      * @effects returns label of this
-     */    
+     */      
     public L getLabel() {
     	checkRep();
     	return this.label;
@@ -90,10 +107,11 @@ public class Vertice <L>{
     
     
     /**
-     * @modifies parentList
+     * @modifies childList
      * @effects adds childLabel to  childrenList and adds edgeLabel to childEdgeList returns false if edge or child exist
-     *
+     * @requires childLabel !=null ,edgeLabel !=null, newEdge != null  
      */  
+    
     
     
     public boolean addChild(L childLabel, L edgeLabel, Edge<L> newEdge) {
@@ -119,8 +137,9 @@ public class Vertice <L>{
     /**
      * @modifies parentList
      * @effects adds ParentLabel to parent list 
+     * @requires parentLabel !=null ,edgeLabel !=null, newEdge != null 
      *
-     */  
+     */ 
     
     public boolean addParent(L parentLabel, L edgeLabel, Edge<L> newEdge) {
         if (edgeLabel == null || parentLabel == null || newEdge ==null){
@@ -139,10 +158,12 @@ public class Vertice <L>{
     	
     }
     
+    
     /**
      * @modifies none
      * @effects return list of children 
-     */  
+     */ 
+	
     public ArrayList<L> listChildren() {
         checkRep();
     	final ArrayList <L> returnList=copyList(this.childrenList);
@@ -163,7 +184,13 @@ public class Vertice <L>{
     		
     }
     
-    
+    /**
+     * @modifies none
+     * @param listToCopy- A list which I want to return a copy of
+     * @effects returns copy of given list 
+     * @requires listToCopy !=null 
+     * @return ArrayList <L> copy of input list 
+     */  
    private ArrayList<L> copyList(ArrayList<L> listToCopy){
     	assert (listToCopy != null):
         	"Error: Label is null pointer";
@@ -180,7 +207,10 @@ public class Vertice <L>{
     
     /**
      * @modifies none
-     * @effects if one of vertices's edges contain an edge with label: edgeLabel, return child label. if edgeLabel doesn't exist return null;
+     * @effects finds child by given edge label
+     * @requires edgeLabel !=null 
+     * @return if one of vertices's edges contain an edge with label: edgeLabel, return child label. 
+     * if edgeLabel doesn't exist return null;
      */
     public L getChildByEdgeLabel(L edgeLabel) {
     	assert (edgeLabel != null):
@@ -196,9 +226,11 @@ public class Vertice <L>{
     	
     }
     
-	    /**
+    /**
      * @modifies none
-     * @effects if one of vertices's incoming edges contain an edge with label: edgeLabel, return parent label. if edgeLabel doesn't exist return null;
+     * @effects finds child by given edge label
+     * @requires edgeLabel !=null
+     * @return if one of vertices's incoming edges contain an edge with label: edgeLabel, return parent label. if edgeLabel doesn't exist return null;
      */
     public L getParentByEdgeLabel(L edgeLabel) {
     	assert (edgeLabel != null):
@@ -215,6 +247,7 @@ public class Vertice <L>{
     }
     /**
      * @modifies none
+     * @requires edgeLabel !=null
      * @effects if one of vertices's edges contain an edge with label: edgeLabel, return true. if edgeLabel doesn't exist return false;
      */
     public boolean doesChildEdgeExist(L edgeLabel) {
@@ -231,6 +264,7 @@ public class Vertice <L>{
     }
     /**
      * @modifies none
+     * @requires edgeLabel !=null
      * @effects if one of vertices's edges contain an edge with label: edgeLabel, return true. if edgeLabel doesn't exist return false;
      */
     public boolean doesParentEdgeExist(L edgeLabel) {
@@ -248,6 +282,7 @@ public class Vertice <L>{
     
     /**
      * @modifies none
+     * @requires parentLabel !=null
      * @effects if this.parentList has parent with Label parentLabel return true, else return false;
      */
     public boolean hasParentWithLabel(L parentLabel) {
@@ -264,7 +299,7 @@ public class Vertice <L>{
     
     /**
      * @modifies none
-     * @effects assures this and its fields don't change to invalid values
+     * @effects assures this and its fields don't change to invalid values during run time
      */
     private void checkRep() {
     	assert (this.label != null):
@@ -331,6 +366,14 @@ public class Vertice <L>{
     	*/
     	
     }
+	
+	
+    /**
+     * @modifies childrenList
+     * @effects removes ParentLabel to parent list 
+     * @requires childLabel !=null ,edgeLabel !=null  
+     * @return true if remove succeed, false if not
+     */  
     public boolean removeChild(L childLabel, L edgeLabel) {
         if (edgeLabel == null || childLabel == null){
         	System.err.println("Error: labels are null pointers");
@@ -346,8 +389,9 @@ public class Vertice <L>{
     /**
      * @modifies parentList
      * @effects removes ParentLabel to parent list 
-     *
-     */  
+     * @requires parentLabel !=null ,edgeLabel !=null  
+     * @return true if remove succeed, false if not
+     */ 
     
     public boolean removeParent(L parentLabel, L edgeLabel) {
         if (edgeLabel == null || parentLabel == null){
