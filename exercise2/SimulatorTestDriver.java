@@ -1,5 +1,6 @@
 package homework2;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ public class SimulatorTestDriver {
 	 */
 	public SimulatorTestDriver() {
         // TODO: Implement this constructor
+		simulators = new HashMap<>();
 	}
 
 	/**
@@ -29,6 +31,10 @@ public class SimulatorTestDriver {
 	 */
 	public void createSimulator(String simName) {
 	    // TODO: Implement this method
+		if (simulators.containsKey(simName))
+			System.err.println("Error: Simulator with this name already Exists");
+		Simulator<String, Transaction> simulator = new Simulator<>(simName);
+		simulators.put(simName, simulator);
 	}
 
 	/**
@@ -43,6 +49,9 @@ public class SimulatorTestDriver {
 	 */
 	public void addChannel(String simName, String channelName, double limit) {
 	    // TODO: Implement this method
+		Channel newCh new Channel(limit, channelName)
+		Simulator<String, Transaction> mySimulator = this.simulators.get(simName);
+		mySimulator.addPipe(channelName,newCh);
 	}
 
 	/**
@@ -57,6 +66,9 @@ public class SimulatorTestDriver {
 	 */
 	public void addParticipant(String simName, String participantName, String product, int amount) {
         // TODO: Implement this method
+		Participant newPar = new Participant(product, amount, participantName);
+		Simulator<String, Transaction> mySimulator = this.simulators.get(simName);
+		mySimulator.addFilter(participantName, newPar);
 	}
 
 	/**
@@ -72,6 +84,8 @@ public class SimulatorTestDriver {
 	 */
 	public void addEdge(String simName, String parentName, String childName, String edgeLabel) {
         // TODO: Implement this method
+		Simulator<String, Transaction> mySimulator = this.simulators.get(simName);
+		mySimulator.conecTwoObjects(edgeLabel, parentName, childName);
 	}
 
 	/**
@@ -83,6 +97,10 @@ public class SimulatorTestDriver {
 	 */
 	public void sendTransaction(String simName, String channelName, Transaction tx) {
         // TODO: Implement this method
+		Simulator<String, Transaction> mySimulator = this.simulators.get(simName);
+		Channel myChannel =(Channel) mySimulator.getObj(channelName);
+		myChannel.addTrans(tx);
+	
     }
 	
 	
@@ -93,6 +111,18 @@ public class SimulatorTestDriver {
 	 */
 	public String listContents(String simName, String channelName) {
         // TODO: Implement this method
+		Simulator<String, Transaction> mySimulator = this.simulators.get(simName);
+		Channel myChannel =(Channel) mySimulator.getObj(channelName);
+
+		
+
+        ArrayList<String> strContents = new ArrayList<>();
+        for (Transaction tran : myChannel.getlist()){
+            String Content = Integer.toString((int) tran.getAmount());
+            strContents.add(Content);
+        }
+        
+        return String.join(" ", strContents);
 	}
 
 
@@ -102,6 +132,9 @@ public class SimulatorTestDriver {
 	 */
 	public double getParticipantStorageAmount(String simName, String participantName) {
         // TODO: Implement this method
+		Simulator<String, Transaction> mySimulator = this.simulators.get(simName);
+		double storageSum = ((Participant)mySimulator.getObj(participantName)).getSumStorageAmount();
+		return storageSum;
 	}
 
 
@@ -111,6 +144,9 @@ public class SimulatorTestDriver {
 	 */
 	public double getParticipantToRecycleAmount(String simName, String participantName) {
         // TODO: Implement this method
+		Simulator<String, Transaction> mySimulator = this.simulators.get(simName);
+		double supplySum = ((Participant)mySimulator.getObj(participantName)).getSumSupplyAmount();
+		return supplySum;
 	}
 
 
@@ -122,6 +158,7 @@ public class SimulatorTestDriver {
 	 */
 	public void simulate(String simName) {
         // TODO: Implement this method
+		this.simulators.get(simName).simulate();
 	}
 
 	/**
@@ -132,6 +169,23 @@ public class SimulatorTestDriver {
 	 */
 	public void printAllEdges(String simName) {
         // TODO: Implement this method
+		Simulator<String, Transaction> mySimulator = this.simulators.get(simName);
+		final BipartiteGraph<String> myGraph = mySimulator.getBipartiteGraph();
+		String outStr = "";
+        for (String verticeLable : myGraph.listBlackVertices()){
+        	outStr = (myGraph.getChildrenEdgeList(verticeLable)+myGraph.getParentEdgeList(verticeLable));              
+        }
+        if (outStr.length()<=0){
+        	return;
+        }
+        else{
+        	System.out.println(outStr.substring(0, outStr.length() - 1));
+        	return;
+        }
+        
+        
+
+		 
 	}
 
 }

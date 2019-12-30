@@ -31,14 +31,15 @@ public class Vertice <L>{
 	private HashMap <L, Edge<L>> parentEdgeList;
 	String verticeColor;
     private final L label;
+    private final Object object;
     
         
 	/**
-	 * @effects Initializes this with a a given label and color.
+	 * @effects Initializes this with a a given label and color and object.
 	 * @requires Label !=null ,color !=null     
 	 */
 
-    public Vertice(L label, String color) {
+    public Vertice(L label, String color, Object object) {
     	assert(label != null):
     		"Error: label is a null pointer";
     	//assert((color != BLACK && color != "WHITE") ):
@@ -49,6 +50,7 @@ public class Vertice <L>{
     	this.parentEdgeList= new HashMap <L, Edge<L>>();
     	this.verticeColor=color;
     	this.label=label;
+    	this.object= object;
     	checkRep();	
     }
     
@@ -95,6 +97,16 @@ public class Vertice <L>{
     	checkRep();
     	return this.verticeColor;
     }
+   
+    /**
+     * @modifies none
+     * @effects returns object of this
+     */  
+    public Object getObject() {
+    	checkRep();
+    	return this.object;
+    }
+    
     
     /**
      * @modifies none
@@ -130,6 +142,26 @@ public class Vertice <L>{
         return true;
     	
     }
+    public String getChildeEdges(){
+    	String outStr = ""  ;
+    	for (L name: childEdgeList.keySet()){
+            String key = name.toString();  
+            outStr = (key + " ");  
+    	}
+    	
+    	return outStr; 	
+    }
+    public String getParentEdges(){
+    	String outStr = ""  ;
+    	for (L name: parentEdgeList.keySet()){
+            String key = name.toString();  
+            outStr = (key + " ");  
+    	}
+    	
+    	return outStr; 	
+    }
+
+
     
     
     

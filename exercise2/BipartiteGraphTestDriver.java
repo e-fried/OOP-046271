@@ -50,12 +50,12 @@ public class BipartiteGraphTestDriver {
      * @effects Adds a black node represented by the String nodeName to the
      * 			graph named graphName.
      */
-    public void addBlackNode(String graphName, String nodeName) {
+    public void addBlackNode(String graphName, String nodeName, Object object) {
         assert (graphName != null || nodeName != null):
         	"Error: one of inputs is null pointer";
         if(graphs.containsKey(graphName)) {
         	if(!(graphs.get(graphName).containsVertice(nodeName))) {
-            	graphs.get(graphName).addBlackVertice(nodeName);
+            	graphs.get(graphName).addBlackVertice(nodeName,object);
             	return;
 
         	}
@@ -77,12 +77,12 @@ public class BipartiteGraphTestDriver {
      * @effects Adds a white node represented by the String nodeName to the
      * 			graph named graphName.
      */
-    public void addWhiteNode(String graphName, String nodeName) {
+    public void addWhiteNode(String graphName, String nodeName,Object object) {
         assert (graphName != null || nodeName != null):
         	"Error: one of inputs is null pointer";
         if(graphs.containsKey(graphName)) {
         	if(!(graphs.get(graphName).containsVertice(nodeName))) {
-            	graphs.get(graphName).addWhiteVertice(nodeName);
+            	graphs.get(graphName).addWhiteVertice(nodeName,object);
             	return;
         	}
         	System.err.println("Error: vertice with this label already Exists");

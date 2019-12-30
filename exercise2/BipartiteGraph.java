@@ -7,6 +7,7 @@ import java.util.*;
  * Each edge can connect only between vertices of different colors. 
  * The Graph has the following methods, addVertice, addEdge,listBlackNodes, listWhiteNodes 
  * A typical BipartiteGraph consists of the following set of properties: {Vertices, Edges, Label}
+ * @param <O>
  */
 
 public class BipartiteGraph <L>{
@@ -82,25 +83,25 @@ public class BipartiteGraph <L>{
     }
     
     
-    public void addWhiteVertice(L verticeLabel){
+    public void addWhiteVertice(L verticeLabel,Object object){
         checkRep();
         assert (verticeLabel != null):
         	"Error: verticeLabel is null pointer";
         //assert (blackVertice != null):
         	//"Error: blackVertice is null pointer";
-        addVertice(verticeLabel, "White");
+        addVertice(verticeLabel, "White",object);
         checkRep();
     }
     
-    public void addBlackVertice(L verticeLabel){
+    public void addBlackVertice(L verticeLabel,Object object){
         checkRep();
         assert (verticeLabel != null):
         	"Error: verticeLabel is null pointer";
-        addVertice(verticeLabel, "Black");
+        addVertice(verticeLabel, "Black",object);
         checkRep();
     }
     
-    private void addVertice(L verticeLabel, String color) {
+    private void addVertice(L verticeLabel, String color,Object object) {
         checkRep();
         assert (verticeLabel != null):
         	"Error: verticeLabel is null pointer";
@@ -108,10 +109,9 @@ public class BipartiteGraph <L>{
             System.out.println("Error: This vertice already exist");
             return;
         }
-        Vertice<L> newVertice = new Vertice<>(verticeLabel, color);
+        Vertice<L> newVertice = new Vertice<>(verticeLabel, color, object);
         verticesHashMap.put(verticeLabel, newVertice);
-        checkRep();
-        
+        checkRep();   
     }
     
     public boolean containsVertice(L verticeLabel) {
@@ -193,6 +193,48 @@ public class BipartiteGraph <L>{
             return null;
     	}
     }
+    public String getChildrenEdgeList(L verticeLabel) {
+        assert (verticeLabel != null):
+        	"Error: verticeLabel is null pointer";
+    	checkRep();
+    	if(verticesHashMap.containsKey(verticeLabel)) {
+    		String childrenEdgesList=verticesHashMap.get(verticeLabel).getChildeEdges();
+    		checkRep();
+    		return childrenEdgesList;
+    	}
+    	else {
+            System.err.println("there is no such Node");
+            return null;
+    	}
+    }
+    public String getParentEdgeList(L verticeLabel) {
+        assert (verticeLabel != null):
+        	"Error: verticeLabel is null pointer";
+    	checkRep();
+    	if(verticesHashMap.containsKey(verticeLabel)) {
+    		String parentsEdgesList=verticesHashMap.get(verticeLabel).getParentEdges();
+    		checkRep();
+    		return parentsEdgesList;
+    	}
+    	else {
+            System.err.println("there is no such Node");
+            return null;
+    	}
+    }
+    
+    
+    public Object getObject(L verticeName){
+    	checkRep();
+        assert (verticeName != null):
+        	"Error: verticeName is null pointer";
+        if (!verticesHashMap.containsKey(verticeName)){
+            System.out.println("Input vertice dosn't exist in the graph");
+            return null;
+        }   
+        return(verticesHashMap.get(verticeName).getObject());
+        
+    	
+    }
     
     public ArrayList<L> getParentList(L verticeLabel) {
         assert (verticeLabel != null):
@@ -217,6 +259,7 @@ public class BipartiteGraph <L>{
         
     	
     }
+
     
     
 

@@ -17,8 +17,8 @@ public class BipartiteGraphTest {
         driver.createGraph("graph1");
         
         //add a pair of nodes
-        driver.addBlackNode("graph1", "n1");
-        driver.addWhiteNode("graph1", "n2");
+        driver.addBlackNode("graph1", "n1",null);
+        driver.addWhiteNode("graph1", "n2",null);
         
         //add an edge
         driver.addEdge("graph1", "n1", "n2", "edge");
@@ -45,8 +45,8 @@ public class BipartiteGraphTest {
         //driver.addWhiteNode("graph1", null);
         assertEquals("Error: verticeLabel is null pointer", "", driver.listWhiteNodes("graph1"));
 
-        driver.addBlackNode("graph1", "black_1");
-        driver.addWhiteNode("graph1", "white_1");
+        driver.addBlackNode("graph1", "black_1",null);
+        driver.addWhiteNode("graph1", "white_1",null);
         driver.addEdge("graph1", null, "white_1", "edge_1");
         driver.addEdge("graph1", "black_1", null, "edge_1");
        
@@ -66,10 +66,10 @@ public class BipartiteGraphTest {
         BipartiteGraphTestDriver driver = new BipartiteGraphTestDriver();
         driver.createGraph("graph1");
 
-        driver.addBlackNode("graph1", "black_1");
-        driver.addWhiteNode("graph1", "white_1");
-        driver.addBlackNode("graph1", "black_2");
-        driver.addWhiteNode("graph1", "white_2");
+        driver.addBlackNode("graph1", "black_1",null);
+        driver.addWhiteNode("graph1", "white_1",null);
+        driver.addBlackNode("graph1", "black_2",null);
+        driver.addWhiteNode("graph1", "white_2",null);
 
         driver.addEdge("graph1", "black_1", "black_2", "edge_1");
         assertEquals("Error: add edge to vertice with the same color", "", driver.listChildren("graph1", "black_1"));
@@ -85,15 +85,15 @@ public class BipartiteGraphTest {
         BipartiteGraphTestDriver driver = new BipartiteGraphTestDriver();
         driver.createGraph("graph1");
 
-        driver.addBlackNode("graph1", "adi");
-        driver.addBlackNode("graph1", "adi");
-        driver.addWhiteNode("graph1", "adi");
+        driver.addBlackNode("graph1", "adi",null);
+        driver.addBlackNode("graph1", "adi",null);
+        driver.addWhiteNode("graph1", "adi",null);
         assertEquals("Error: adding node with the same label", "adi", driver.listBlackNodes("graph1"));
         assertEquals("Error: adding node with the same label", "", driver.listWhiteNodes("graph1"));
 
-        driver.addWhiteNode("graph1", "elisha");
-        driver.addWhiteNode("graph1", "elisha");
-        driver.addBlackNode("graph1", "elisha");
+        driver.addWhiteNode("graph1", "elisha",null);
+        driver.addWhiteNode("graph1", "elisha",null);
+        driver.addBlackNode("graph1", "elisha",null);
         assertEquals("Error: adding node with the same label", "adi", driver.listBlackNodes("graph1"));
         assertEquals("Error: adding node with the same label", "elisha", driver.listWhiteNodes("graph1"));
     }
@@ -103,8 +103,8 @@ public class BipartiteGraphTest {
         BipartiteGraphTestDriver driver = new BipartiteGraphTestDriver();
         driver.createGraph("graph1");
 
-        driver.addBlackNode("graph1", "black_1");
-        driver.addWhiteNode("graph1", "white_1");
+        driver.addBlackNode("graph1", "black_1",null);
+        driver.addWhiteNode("graph1", "white_1",null);
         driver.addEdge("graph1", "black_1", "white_2", "edge_1");
         driver.addEdge("graph1", "black_2", "white_1", "edge_1");
         assertEquals("Error: adding edge to no exist node", "", driver.listChildren("graph1", "black_1"));
@@ -116,8 +116,8 @@ public class BipartiteGraphTest {
         BipartiteGraphTestDriver driver = new BipartiteGraphTestDriver();
         driver.createGraph("graph1");
 
-        driver.addBlackNode("graph1", "black_1");
-        driver.addWhiteNode("graph1", "white_1");
+        driver.addBlackNode("graph1", "black_1",null);
+        driver.addWhiteNode("graph1", "white_1",null);
         driver.addEdge("graph1", "black_1", "white_1", "edge_1");
         assertEquals("Error: getChildByEdgeLabel", "white_1", driver.getChildByEdgeLabel("graph1", "black_1", "edge_1"));
         assertEquals("Error: getChildByEdgeLabel- null", null, driver.getChildByEdgeLabel("graph1", "white_1", "edge_1"));
