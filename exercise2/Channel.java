@@ -17,7 +17,7 @@ public class Channel implements Simulatable<String> {
 			"Error channel limit is smaller than 0";
 		assert(name !=null):
 			"Error: ChannelName is a null pointer";
-		ArrayList<Transaction> transferList =new ArrayList<Transaction>();
+		this.transferList =new ArrayList<Transaction>();
 		this.channelLimit=limit;
 		this.channelName=name;
 		this.currentAmount=0;
@@ -54,9 +54,14 @@ public class Channel implements Simulatable<String> {
 			
 			return;
 		}
+		if(childList.size()==0) {
+			
+			return;
+		}
 		String ParticipantName =childList.get(index_count % childList.size());
 		Participant ParticipantToSend=(Participant)graph.getObject(ParticipantName);
 		Transaction transToSend=transferList.get(0);
+		transferList.remove(0);
 		ParticipantToSend.addTransaction(transToSend);
 		ParticipantToSend.updateDonateList();
 		index_count++;

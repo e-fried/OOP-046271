@@ -33,7 +33,9 @@ public class BipartiteGraph <L>{
         checkRep();        
     }
     /**
-     * @modifies none
+     * @requires edgeLabel != null && srcLabel != null && destLabel != null
+     * 			 && vertices with srcLabel and destLabel already exist in graph. 
+     * @modifies vetices in this graph which licated in this.verticesHashMap
      * @effects adds legal edge from src vertice with srcLabel  to dest vertice with destLabel;
      */
     public void addEdge(L edgeLabel, L srcLabel, L destLabel ) {
@@ -82,17 +84,29 @@ public class BipartiteGraph <L>{
         return;
     }
     
-    
+    /**
+     * @requires verticeLabel != null
+     *           && Vertices with verticeLabel don't exist
+     *          
+     * @modifies vetices in this graph which licated in this.verticesHashMap
+     * @effects Adds a white Vertice represented by the Label verticeLabel and have Object field which represent
+     * a general Object .
+     */
     public void addWhiteVertice(L verticeLabel,Object object){
         checkRep();
         assert (verticeLabel != null):
         	"Error: verticeLabel is null pointer";
-        //assert (blackVertice != null):
-        	//"Error: blackVertice is null pointer";
         addVertice(verticeLabel, "White",object);
         checkRep();
     }
-    
+    /**
+     * @requires verticeLabel != null
+     *           && Vertices with verticeLabel don't exist
+     *          
+     * @modifies vetices in this graph which licated in this.verticesHashMap
+     * @effects Adds a black Vertice represented by the Label verticeLabel and have Object field which represent
+     * a general Object .
+     */
     public void addBlackVertice(L verticeLabel,Object object){
         checkRep();
         assert (verticeLabel != null):
@@ -100,7 +114,14 @@ public class BipartiteGraph <L>{
         addVertice(verticeLabel, "Black",object);
         checkRep();
     }
-    
+    /**
+     * @requires verticeLabel != null
+     *           && Vertices with verticeLabel don't exist
+     *          
+     * @modifies vetices in this graph which licated in this.verticesHashMap
+     * @effects Adds a white or black Vertice by color parameter represented by the Label verticeLabel and
+     * have Object field which represent a general Object .
+     */
     private void addVertice(L verticeLabel, String color,Object object) {
         checkRep();
         assert (verticeLabel != null):
@@ -113,7 +134,10 @@ public class BipartiteGraph <L>{
         verticesHashMap.put(verticeLabel, newVertice);
         checkRep();   
     }
-    
+    /**
+     * @requires verticeLabel != null        
+     * @return true if graph already contain Vertice with Label verticeLabel else will return false. 
+     */
     public boolean containsVertice(L verticeLabel) {
         assert (verticeLabel != null):
         	"Error: verticeLabel is null pointer";
@@ -121,9 +145,13 @@ public class BipartiteGraph <L>{
         if(verticesHashMap.containsKey(verticeLabel)){
         	return true;
         }
-        return false;
-    	
+        return false;   	
     }
+    
+    /**
+    *
+    * @return a ArrayList<L> list of the names of all the white vertices in the graph.
+    */
     public ArrayList<L> listWhiteVertices() {
     	ArrayList <L> whiteList=new ArrayList<L>();
     	String str = "White";
@@ -136,7 +164,10 @@ public class BipartiteGraph <L>{
     	checkRep();
     	return whiteList;
     }
-
+    /**
+     *
+     * @return a ArrayList<L> list of the names of all the black vertices in the graph.
+     */
     public ArrayList<L> listBlackVertices() {
     	ArrayList <L> blackList=new ArrayList<L>();
     	String str = "Black";
@@ -149,6 +180,12 @@ public class BipartiteGraph <L>{
     	checkRep();
     	return blackList;
     }
+    
+    /**
+     * @requires edgeLabel != null && srcLabel != null and both vertices exist in graph 
+     * @return the Label of the child of srcLabel that is connected by the
+     * 		   edge labeled edgeLabel, in this graph.
+     */
     public L childDetect(L edgeLabel, L srcLabel){
         assert (edgeLabel != null || srcLabel != null):
         	"Error: one of inputs is null pointer";
@@ -163,7 +200,11 @@ public class BipartiteGraph <L>{
         return verticesHashMap.get(srcLabel).getChildByEdgeLabel(edgeLabel);
           	
     }
-    
+    /**
+     * @requires edgeLabel != null && destLabel != null and both vertices exist in graph 
+     * @return the Label of the parent of destLabel that is connected by the
+     * 		   edge labeled edgeLabel, in this graph.
+     */
     public L parentDetect(L edgeLabel, L destLabel){
         assert (edgeLabel != null || destLabel != null):
         	"Error: one of inputs is null pointer";
@@ -178,7 +219,11 @@ public class BipartiteGraph <L>{
         return verticesHashMap.get(destLabel).getParentByEdgeLabel(edgeLabel);
     	
     }
-    
+    /**
+     * @requires verticeLabel != null and vertice with verticeLabel already exist at this graph
+     * @return ArrayList<L> list of the names of the children of Vertice with
+     * 		   verticeLabel in this graph.
+     */
     public ArrayList<L> getChildrenList(L verticeLabel) {
         assert (verticeLabel != null):
         	"Error: verticeLabel is null pointer";
@@ -193,6 +238,11 @@ public class BipartiteGraph <L>{
             return null;
     	}
     }
+    /**
+     * @requires verticeLabel != null and vertice with verticeLabel already exist at this graph
+     * @return String of the names separated by " " of the children edges of Vertice with
+     * 		   verticeLabel in this graph.
+     */
     public String getChildrenEdgeList(L verticeLabel) {
         assert (verticeLabel != null):
         	"Error: verticeLabel is null pointer";
@@ -207,6 +257,11 @@ public class BipartiteGraph <L>{
             return null;
     	}
     }
+    /**
+     * @requires verticeLabel != null and vertice with verticeLabel already exist at this graph
+     * @return String of the names separated by " " of the parent edges of Vertice with
+     * 		   verticeLabel in this graph.
+     */
     public String getParentEdgeList(L verticeLabel) {
         assert (verticeLabel != null):
         	"Error: verticeLabel is null pointer";
@@ -222,7 +277,10 @@ public class BipartiteGraph <L>{
     	}
     }
     
-    
+    /**
+     * @requires verticeLabel != null and vertice with verticeLabel already exist at this graph
+     * @return Object of the Vertice with verticeLabel in this graph.
+     */
     public Object getObject(L verticeName){
     	checkRep();
         assert (verticeName != null):
@@ -235,7 +293,11 @@ public class BipartiteGraph <L>{
         
     	
     }
-    
+    /**
+     * @requires verticeLabel != null and vertice with verticeLabel already exist at this graph
+     * @return ArrayList<L> list of the names of the parents of Vertice with
+     * 		   verticeLabel in this graph.
+     */
     public ArrayList<L> getParentList(L verticeLabel) {
         assert (verticeLabel != null):
         	"Error: verticeLabel is null pointer";

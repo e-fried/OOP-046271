@@ -47,9 +47,9 @@ public class SimulatorTestDriver {
 	 * @effects Creates a new Channel named by the String channelName, with a limit, and add it to
 	 *          the simulator named simName.
 	 */
-	public void addChannel(String simName, String channelName, double limit) {
+	public void addChannel(String simName, String channelName, int limit) {
 	    // TODO: Implement this method
-		Channel newCh new Channel(limit, channelName)
+		Channel newCh =new Channel(channelName , limit);
 		Simulator<String, Transaction> mySimulator = this.simulators.get(simName);
 		mySimulator.addPipe(channelName,newCh);
 	}
@@ -66,7 +66,7 @@ public class SimulatorTestDriver {
 	 */
 	public void addParticipant(String simName, String participantName, String product, int amount) {
         // TODO: Implement this method
-		Participant newPar = new Participant(product, amount, participantName);
+		Participant newPar = new Participant(participantName, product, amount);
 		Simulator<String, Transaction> mySimulator = this.simulators.get(simName);
 		mySimulator.addFilter(participantName, newPar);
 	}
@@ -99,7 +99,7 @@ public class SimulatorTestDriver {
         // TODO: Implement this method
 		Simulator<String, Transaction> mySimulator = this.simulators.get(simName);
 		Channel myChannel =(Channel) mySimulator.getObj(channelName);
-		myChannel.addTrans(tx);
+		myChannel.addTransaction(tx);
 	
     }
 	
@@ -117,7 +117,7 @@ public class SimulatorTestDriver {
 		
 
         ArrayList<String> strContents = new ArrayList<>();
-        for (Transaction tran : myChannel.getlist()){
+        for (Transaction tran : myChannel.getTransferList()){
             String Content = Integer.toString((int) tran.getAmount());
             strContents.add(Content);
         }
@@ -130,10 +130,10 @@ public class SimulatorTestDriver {
 	 * @requires addParticipant(participantName)
 	 * @return The sum of all Transaction amount of stored products that one has in his storage buffer.
 	 */
-	public double getParticipantStorageAmount(String simName, String participantName) {
+	public int getParticipantStorageAmount(String simName, String participantName) {
         // TODO: Implement this method
 		Simulator<String, Transaction> mySimulator = this.simulators.get(simName);
-		double storageSum = ((Participant)mySimulator.getObj(participantName)).getSumStorageAmount();
+		int storageSum =(int) ((Participant)mySimulator.getObj(participantName)).getStorageSum();
 		return storageSum;
 	}
 
@@ -142,10 +142,10 @@ public class SimulatorTestDriver {
 	 * @requires addParticipant(participantName)
 	 * @return The sum of all Transaction amount of waiting to be recycled products that one has.
 	 */
-	public double getParticipantToRecycleAmount(String simName, String participantName) {
+	public int getParticipantToRecycleAmount(String simName, String participantName) {
         // TODO: Implement this method
 		Simulator<String, Transaction> mySimulator = this.simulators.get(simName);
-		double supplySum = ((Participant)mySimulator.getObj(participantName)).getSumSupplyAmount();
+		int supplySum = (int)((Participant)mySimulator.getObj(participantName)).getDonateSum();
 		return supplySum;
 	}
 
@@ -180,7 +180,6 @@ public class SimulatorTestDriver {
         }
         else{
         	System.out.println(outStr.substring(0, outStr.length() - 1));
-        	return;
         }
         
         

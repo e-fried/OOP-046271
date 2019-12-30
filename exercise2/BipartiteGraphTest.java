@@ -40,9 +40,7 @@ public class BipartiteGraphTest {
 
 
 
-        //assertEquals("Error: verticeLabel is null pointer", "", driver.addBlackNode("graph1", null));
         assertEquals("Error: verticeLabel is null pointer", "", driver.listBlackNodes("graph1"));
-        //driver.addWhiteNode("graph1", null);
         assertEquals("Error: verticeLabel is null pointer", "", driver.listWhiteNodes("graph1"));
 
         driver.addBlackNode("graph1", "black_1",null);
