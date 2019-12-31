@@ -347,17 +347,6 @@ public class Vertice <L>{
     	assert (this.parentEdgeList !=null):
         	"Error: parentEdgeList is a null pointer";
     	
-    	// check that there aren't 2 labels that are equal in childrenList
-    	/*Iterator<L> childenIter = this.childrenList.iterator();
-    	while(childenIter.hasNext()) {
-    		Iterator<L> tempIter=childenIter;
-    		while(tempIter.hasNext()) {
-    			assert(!(childenIter.equals(tempIter.next()))):
-    				"Error: Label is null pointer";
-    		}
-    		childenIter.next();
-    		
-    	}*/
       
         HashSet <L> noDupChildrenSet = new HashSet<L>(this.childrenList);
         assert(noDupChildrenSet.size()>= childrenList.size()):
@@ -366,36 +355,6 @@ public class Vertice <L>{
         HashSet <L> noDupParentSet = new HashSet<L>(this.parentList);
         assert(noDupParentSet.size()>= parentList.size()):
         	"Error: there are duplicate labels in ParentList";
-        
-//        Iterator<java.util.Map.Entry<L, Edge<L>>> cIt = childEdgeList.entrySet().iterator();
-//        while (cIt.hasNext()) {
-//            Map.Entry pair = (Map.Entry)cIt.next();
-//            assert(pair.getKey().equals(((Edge<L>) pair.getValue()).getChildLabel())):
-//            	"Error vertice child label doesn't match childEdgeList label ";
-//            cIt.remove(); // avoids a ConcurrentModificationException
-//        }
-//        Iterator<java.util.Map.Entry<L, Edge<L>>> pIt = parentEdgeList.entrySet().iterator();
-//        while (pIt.hasNext()) {
-//            Map.Entry pair = (Map.Entry)pIt.next();
-//            assert(pair.getKey().equals(((Edge<L>) pair.getValue()).getParentLabel())):
-//            	"Error vertice parent label doesn't match parentEdgeList label ";
-//            pIt.remove(); // avoids a ConcurrentModificationException
-//        }
-
-
-    	// check that there aren't 2 labels that are equal in childrenList
-        /*
-    	Iterator<L> parentIter = this.parentList.iterator();
-    	while(parentIter.hasNext()) {
-    		Iterator<L> tempIter=parentIter;
-    		while(tempIter.hasNext()) {
-    			assert(!(parentIter.equals(tempIter.next()))):
-    				"Error: Label is null pointer";
-    		}
-    		parentIter.next();
-    		
-    	}
-    	*/
     	
     }
 	
