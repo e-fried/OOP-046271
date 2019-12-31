@@ -4,10 +4,10 @@ import java.util.List;
 
 public class Simulator<L,WO> {
 	// Abs. Function:
-	// Simulator represents a general system which consist of pipes and channels which have conection between them.
-	// by that each one of them can be simulated.
-    	// The system is represented by Bitrpartite graph where pipes are represented as black nodes
-    	// and filters are represented as white nodes.
+	// Simulator represents a system to transfer Work Loads between pipes and channels.
+	// the transfer of Work Loads in the system can be simulated using Simulator.
+    	// The system is represented by Bitrpartite graph where black nodes represent pipes
+    	// and white nodes represent filters. Filters and pipes are connected using the Bipartite Graph Edges.
     	//
     	// Rep. Invariant:
 	// simulateGraph != null
@@ -70,10 +70,10 @@ public class Simulator<L,WO> {
 		checkRep();
 	}
 	/**
-     * @requires edgeLabel != null && srcLabel != null && destLabel != null
-     * 			 && Objects with srcLabel and destLabel already exist in graph.  
-     * 			 && node named srcLabel has no other outgoing edge labeled edgeLabel 
-	 *           && node named destLabel has no other incoming edge labeled edgeLabel
+         * @requires edgeLabel != null && srcLabel != null && destLabel != null
+         *     	 && Objects with srcLabel and destLabel already exist in graph.  
+         * 	 && node named srcLabel has no other outgoing edge labeled edgeLabel 
+         *       && node named destLabel has no other incoming edge labeled edgeLabel
 	 * @modifies this.simulateGraph
 	 * @effects Adds an edge from the Node Object named srcLabel to the Node Object named
 	 *          destLabel in this Simulator. The new edge's label
@@ -101,6 +101,11 @@ public class Simulator<L,WO> {
 			
 		
 	}
+    
+    /**
+     * @modifies none
+     * @effects assures this and its fields don't change to invalid values during run time
+     */
 	private void checkRep(){
         assert (simulateGraph != null):
         	"Error: simulateGraph is null pointer";
