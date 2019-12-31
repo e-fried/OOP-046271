@@ -1,6 +1,18 @@
 package homework2;
-
+/**
+ * This class implements an Edge in a BipartiteGraph. 
+ * An Edge is directed in the direction from srcLabel to destLabel 
+ * A typical Edge consists of the following set of
+ * properties: {edgeLabel,srcLabel, destLabel}
+ */
 public class Edge <L>{
+	
+	// Abs. Function:
+	// Represents an edge in a Bipartite graph
+	// the Edge is directed from vertice srcLabel to destLabel
+	// Rep. Invariant:
+	// vertice has no null values in fields edgeLabel,srcLabel,destLabel
+	
 	
 	private L edgeLabel ;
 	private L srcLabel ;
