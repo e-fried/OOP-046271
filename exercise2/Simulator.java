@@ -3,7 +3,14 @@ package homework2;
 import java.util.List;
 
 public class Simulator<L,WO> {
-	
+	// Abs. Function:
+	// Simulator represents a general system which consist of pipes and channels which have conection between them.
+	// by that each one of them can be simulated.
+    	// The system is represented by Bitrpartite graph where pipes are represented as black nodes
+    	// and filters are represented as white nodes.
+    	//
+    	// Rep. Invariant:
+	// simulateGraph != null
 	
 	private BipartiteGraph<L> simulateGraph;
 	/**
