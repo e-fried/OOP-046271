@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import javax.swing.*;
-
+/**
+* This is an inherited class implementing PaintOrder,
+* this class represents a coloring order by columns, in which first column of panles is first painted than second ans so forth. interface for strategy design pattern of different orders by which to paint the panels
+*/
 public class ColumnOrder implements PaintOrder {
 
 	private Timer t;
