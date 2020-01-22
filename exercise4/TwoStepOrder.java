@@ -4,12 +4,26 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Observable;
-
 import javax.swing.*;
 
+/**
+* This is an inherited class implementing PaintOrder,
+* this class represents a continous coloring order by skips, in which the top left panel is painted first, 
+* than its adjacent panel to the right is skipped and the following one is painted, and so on.
+*/
 public class TwoStepOrder implements PaintOrder {
-
+	// Abs. Function:
+	// Represents the order in which the panels in the screen change color at every time unit. 
+	// Rep. Invariant:
+	// 
 	private Timer t;
+	
+	/**
+	 * @effects updates color of the various panels by calling paintPanel.
+	 * the order in which these panels are updated is the order held in the array order.
+	 * @requires panels !=null
+	 *          
+	 */
 
 	@Override
 	public void update(Observable arg0, Object panels ) {
@@ -28,6 +42,11 @@ public class TwoStepOrder implements PaintOrder {
 		});
 		t.start();
 	}
+	
+	/**
+	 * @effects stops update of the panel colors.
+	 *          
+	 */
   public void stopRun() {
 		if (t != null)
 			t.stop();
