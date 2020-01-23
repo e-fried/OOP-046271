@@ -8,9 +8,8 @@ import java.util.Random;
 
 import javax.swing.*;
 /**
- * Main application class for exercise #1.
- * This application allows the user to add shapes to a graphical window and
- * to animate them.
+ * Main application class for exercise #4.
+ * This application shows a graphical window consisting of 25 panels that change based on a coloring order we choose
  */
 @SuppressWarnings("serial")
 
@@ -35,9 +34,8 @@ public class Billboard extends JFrame implements ActionListener  {
 
 	/**
 	 * @modifies this
-	 * @effects Initializes the GUI and enables a timer that steps animation
-	 * 			of all shapes in this 25 times per second while animation
-	 * 			checkbox is selected.
+	 * @effects Initializes the GUI and initalizes a board consisting of 25 panels 
+	 * that are initalized and then colored by the coloring scheme defined below 
 	 */
 	public Billboard() {
 		super("Billboard");
