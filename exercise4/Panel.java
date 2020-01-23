@@ -61,6 +61,9 @@ public class Panel  {
 		checkRep();
 
 	}
+    /**
+     * @effects Checks if values in Panel are valid
+     */
 	private void checkRep(){
 		assert (myPanel != null):
             "Error: myPanel is null pointer";
